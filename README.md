@@ -69,4 +69,9 @@ Maxwell Murunga (@maxymurm) / Advent Digital
 
 ## Project Board
 
-https://github.com/users/maxymurm/projects/[TBD]
+https://github.com/users/maxymurm/projects/11
+
+**143 issues** across 22 milestones:
+- BE Phase 1–8: Backend migration, YES2 PHP engine, unified module model, sync, catalog, data migration, web, deployment
+- MB Phase 1–10: Mobile foundation, YES2 readers, SWORD integration, BibleReaderInterface, reader UI, navigation, markers, sync/auth, content, release
+- W Phase 1–4: YES2 web support, reading plans/settings, study tools, export/workspace
