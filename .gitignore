@@ -1,0 +1,37 @@
+# Backend (Laravel)
+backend/vendor/
+backend/.env
+backend/.env.*
+!backend/.env.example
+backend/storage/app/public/
+backend/storage/logs/
+backend/storage/framework/cache/
+backend/storage/framework/sessions/
+backend/storage/framework/testing/
+backend/storage/framework/views/
+backend/bootstrap/cache/
+backend/node_modules/
+backend/public/hot
+backend/public/storage
+backend/public/build/
+
+# Mobile (Kotlin/Gradle)
+mobile/.gradle/
+mobile/build/
+mobile/.kotlin/
+mobile/local.properties
+mobile/*.jks
+mobile/keystore.properties
+mobile/composeApp/build/
+mobile/shared/build/
+mobile/iosApp/build/
+mobile/desktopApp/build/
+mobile/.idea/
+
+# Common
+.DS_Store
+Thumbs.db
+*.log
+*.swp
+.vscode/
+.idea/
