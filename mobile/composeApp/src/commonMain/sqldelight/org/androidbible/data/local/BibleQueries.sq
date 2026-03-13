@@ -69,3 +69,18 @@ SELECT * FROM pericopes WHERE bible_version_id = ? AND ari >= ? AND ari <= ? ORD
 insertPericope:
 INSERT OR REPLACE INTO pericopes(id, bible_version_id, ari, title)
 VALUES (?, ?, ?, ?);
+
+-- Verse Cache Queries
+
+getCachedChapter:
+SELECT * FROM verse_cache WHERE module_key = ? AND book_id = ? AND chapter = ? ORDER BY verse;
+
+getCachedVerse:
+SELECT * FROM verse_cache WHERE module_key = ? AND ari = ?;
+
+insertCachedVerse:
+INSERT OR REPLACE INTO verse_cache(module_key, book_id, chapter, verse, ari, text, text_plain, cached_at)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+
+clearModuleCache:
+DELETE FROM verse_cache WHERE module_key = ?;

@@ -243,3 +243,19 @@ CREATE TABLE songs (
 );
 
 CREATE INDEX idx_songs_book ON songs(song_book_id);
+
+-- Verse Cache (cached chapter text from binary modules to avoid re-parsing)
+CREATE TABLE verse_cache (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    module_key TEXT NOT NULL,
+    book_id INTEGER NOT NULL,
+    chapter INTEGER NOT NULL,
+    verse INTEGER NOT NULL,
+    ari INTEGER NOT NULL,
+    text TEXT NOT NULL,
+    text_plain TEXT,
+    cached_at TEXT NOT NULL,
+    UNIQUE(module_key, ari)
+);
+
+CREATE INDEX idx_verse_cache_module_chapter ON verse_cache(module_key, book_id, chapter);
