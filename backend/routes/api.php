@@ -79,6 +79,11 @@ Route::prefix('v1')->group(function () {
         // Sync
         Route::post('sync/push', [\App\Http\Controllers\Api\V1\SyncController::class, 'push']);
         Route::post('sync/pull', [\App\Http\Controllers\Api\V1\SyncController::class, 'pull']);
+        Route::post('sync/markers', [\App\Http\Controllers\Api\V1\SyncController::class, 'pushMarkers']);
+        Route::post('sync/markers/pull', [\App\Http\Controllers\Api\V1\SyncController::class, 'pullMarkers']);
+
+        // Broadcasting auth for Sanctum Bearer token clients (mobile)
+        Route::post('broadcasting/auth', [\App\Http\Controllers\Api\V1\BroadcastingAuthController::class, 'authenticate']);
 
         // Devices
         Route::apiResource('devices', \App\Http\Controllers\Api\V1\DeviceController::class);
