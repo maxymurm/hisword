@@ -35,3 +35,7 @@ Thumbs.db
 *.swp
 .vscode/
 .idea/
+
+Resources/
+storage/app/private/sword-modules/
+storage/app/sword-search/
