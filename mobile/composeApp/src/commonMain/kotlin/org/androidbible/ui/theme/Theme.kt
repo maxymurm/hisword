@@ -124,12 +124,55 @@ val AppTypography = Typography(
     ),
 )
 
+// Night mode colors (AMOLED-friendly)
+private val NightColorScheme = darkColorScheme(
+    primary = Color(0xFF81C784),
+    onPrimary = Color(0xFF00390A),
+    primaryContainer = Color(0xFF003910),
+    onPrimaryContainer = Color(0xFFA5D6A7),
+    secondary = Color(0xFFB5CCB7),
+    onSecondary = Color(0xFF213526),
+    secondaryContainer = Color(0xFF2A3B2E),
+    onSecondaryContainer = Color(0xFFD0E8D2),
+    tertiary = Color(0xFFA2CED9),
+    onTertiary = Color(0xFF01363F),
+    background = Color(0xFF000000),
+    onBackground = Color(0xFFD8D8D2),
+    surface = Color(0xFF000000),
+    onSurface = Color(0xFFD8D8D2),
+    error = Color(0xFFFFB4AB),
+)
+
+// Sepia reading mode
+private val SepiaColorScheme = lightColorScheme(
+    primary = Color(0xFF5D4037),
+    onPrimary = Color(0xFFFFFFFF),
+    primaryContainer = Color(0xFFD7CCC8),
+    onPrimaryContainer = Color(0xFF3E2723),
+    secondary = Color(0xFF6D4C41),
+    onSecondary = Color(0xFFFFFFFF),
+    background = Color(0xFFF5ECD7),
+    onBackground = Color(0xFF3E2723),
+    surface = Color(0xFFF5ECD7),
+    onSurface = Color(0xFF3E2723),
+    error = Color(0xFFBA1A1A),
+)
+
+enum class ThemeMode { SYSTEM, LIGHT, DARK, NIGHT, SEPIA }
+
 @Composable
 fun AndroidBibleTheme(
+    themeMode: ThemeMode = ThemeMode.SYSTEM,
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
+    val colorScheme = when (themeMode) {
+        ThemeMode.LIGHT -> LightColorScheme
+        ThemeMode.DARK -> DarkColorScheme
+        ThemeMode.NIGHT -> NightColorScheme
+        ThemeMode.SEPIA -> SepiaColorScheme
+        ThemeMode.SYSTEM -> if (darkTheme) DarkColorScheme else LightColorScheme
+    }
 
     MaterialTheme(
         colorScheme = colorScheme,
