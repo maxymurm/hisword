@@ -1,0 +1,71 @@
+-- Bible Version Queries
+
+getAllVersions:
+SELECT * FROM bible_versions WHERE is_active = 1 ORDER BY sort_order;
+
+getVersionById:
+SELECT * FROM bible_versions WHERE id = ?;
+
+insertVersion:
+INSERT OR REPLACE INTO bible_versions(id, short_name, long_name, language_code, locale, description, engine, sort_order, has_old_testament, has_new_testament, is_active, created_at, updated_at)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+deleteVersion:
+DELETE FROM bible_versions WHERE id = ?;
+
+-- Module Queries
+
+getAllModules:
+SELECT * FROM modules ORDER BY name;
+
+getModuleByKey:
+SELECT * FROM modules WHERE key = ?;
+
+getModulesByEngine:
+SELECT * FROM modules WHERE engine = ? ORDER BY name;
+
+insertModule:
+INSERT OR REPLACE INTO modules(id, key, name, engine, language, description, data_path, installed_at, updated_at)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+deleteModule:
+DELETE FROM modules WHERE key = ?;
+
+-- Book Queries
+
+getBooksByVersion:
+SELECT * FROM books WHERE bible_version_id = ? ORDER BY sort_order;
+
+getBook:
+SELECT * FROM books WHERE bible_version_id = ? AND book_id = ?;
+
+insertBook:
+INSERT OR REPLACE INTO books(id, bible_version_id, book_id, short_name, long_name, abbreviation, chapter_count, sort_order)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+
+-- Verse Queries
+
+getVersesByChapter:
+SELECT * FROM verses WHERE bible_version_id = ? AND book_id = ? AND chapter = ? ORDER BY verse;
+
+getVerseByAri:
+SELECT * FROM verses WHERE bible_version_id = ? AND ari = ?;
+
+searchVerses:
+SELECT * FROM verses WHERE bible_version_id = ? AND text LIKE '%' || ? || '%' ORDER BY ari LIMIT 200;
+
+insertVerse:
+INSERT OR REPLACE INTO verses(id, bible_version_id, ari, book_id, chapter, verse, text, text_without_formatting)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+
+deleteVersesByChapter:
+DELETE FROM verses WHERE bible_version_id = ? AND book_id = ? AND chapter = ?;
+
+-- Pericope Queries
+
+getPericopesByChapter:
+SELECT * FROM pericopes WHERE bible_version_id = ? AND ari >= ? AND ari <= ? ORDER BY ari;
+
+insertPericope:
+INSERT OR REPLACE INTO pericopes(id, bible_version_id, ari, title)
+VALUES (?, ?, ?, ?);

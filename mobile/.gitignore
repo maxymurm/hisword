@@ -1,0 +1,32 @@
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+*.apk
+*.aar
+*.ap_
+*.dex
+*.class
+*.log
+*.tmp
+
+# Kotlin
+*.kotlin_module
+
+# iOS
+iosApp/Pods/
+iosApp/.build/
+iosApp/build/
+*.xcworkspace
+xcuserdata/
+*.xcuserstate
+
+# Android
+/composeApp/release/
+/composeApp/debug/

@@ -1,0 +1,98 @@
+-- Marker Queries
+
+getAllMarkers:
+SELECT * FROM markers WHERE deleted_at IS NULL ORDER BY created_at DESC;
+
+getMarkersByKind:
+SELECT * FROM markers WHERE kind = ? AND deleted_at IS NULL ORDER BY created_at DESC;
+
+getMarkersByAri:
+SELECT * FROM markers WHERE ari = ? AND deleted_at IS NULL;
+
+getMarkerById:
+SELECT * FROM markers WHERE id = ?;
+
+getMarkerByGid:
+SELECT * FROM markers WHERE gid = ?;
+
+insertMarker:
+INSERT OR REPLACE INTO markers(id, gid, server_id, user_id, bible_version_id, ari, kind, caption, verse_count, color, is_synced, created_at, updated_at, deleted_at)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+updateMarker:
+UPDATE markers SET ari = ?, kind = ?, caption = ?, verse_count = ?, color = ?, is_synced = ?, updated_at = ? WHERE id = ?;
+
+softDeleteMarker:
+UPDATE markers SET deleted_at = ?, is_synced = 0, updated_at = ? WHERE id = ?;
+
+getUnsyncedMarkers:
+SELECT * FROM markers WHERE is_synced = 0;
+
+markMarkerSynced:
+UPDATE markers SET is_synced = 1, server_id = ? WHERE id = ?;
+
+lastInsertRowId:
+SELECT last_insert_rowid();
+
+-- Label Queries
+
+getAllLabels:
+SELECT * FROM labels WHERE deleted_at IS NULL ORDER BY title;
+
+getLabelById:
+SELECT * FROM labels WHERE id = ?;
+
+getLabelByGid:
+SELECT * FROM labels WHERE gid = ?;
+
+insertLabel:
+INSERT OR REPLACE INTO labels(id, gid, server_id, user_id, title, background_color, is_synced, created_at, updated_at, deleted_at)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+updateLabel:
+UPDATE labels SET title = ?, background_color = ?, is_synced = 0, updated_at = ? WHERE id = ?;
+
+softDeleteLabel:
+UPDATE labels SET deleted_at = ?, is_synced = 0, updated_at = ? WHERE id = ?;
+
+-- Marker-Label Queries
+
+getLabelsForMarker:
+SELECT l.* FROM labels l
+INNER JOIN marker_label ml ON l.id = ml.label_id
+WHERE ml.marker_id = ? AND l.deleted_at IS NULL;
+
+getMarkersForLabel:
+SELECT m.* FROM markers m
+INNER JOIN marker_label ml ON m.id = ml.marker_id
+WHERE ml.label_id = ? AND m.deleted_at IS NULL;
+
+attachLabel:
+INSERT OR IGNORE INTO marker_label(marker_id, label_id) VALUES (?, ?);
+
+detachLabel:
+DELETE FROM marker_label WHERE marker_id = ? AND label_id = ?;
+
+-- Progress Mark Queries
+
+getAllProgressMarks:
+SELECT * FROM progress_marks ORDER BY preset;
+
+getProgressMarkByPreset:
+SELECT * FROM progress_marks WHERE preset = ?;
+
+insertProgressMark:
+INSERT OR REPLACE INTO progress_marks(id, gid, server_id, user_id, preset, ari, caption, modify_time, is_synced, created_at, updated_at)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+updateProgressMark:
+UPDATE progress_marks SET ari = ?, caption = ?, modify_time = ?, is_synced = 0, updated_at = ? WHERE id = ?;
+
+deleteProgressMark:
+DELETE FROM progress_marks WHERE id = ?;
+
+getProgressMarkHistory:
+SELECT * FROM progress_mark_history WHERE progress_mark_id = ? ORDER BY created_at DESC;
+
+insertProgressMarkHistory:
+INSERT INTO progress_mark_history(progress_mark_id, ari, created_at) VALUES (?, ?, ?);

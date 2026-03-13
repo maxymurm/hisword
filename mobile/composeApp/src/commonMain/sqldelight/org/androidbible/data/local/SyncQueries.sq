@@ -1,0 +1,119 @@
+-- Sync Queue Queries
+
+getPendingSyncItems:
+SELECT * FROM sync_queue WHERE status = 'pending' ORDER BY created_at ASC;
+
+getFailedSyncItems:
+SELECT * FROM sync_queue WHERE status = 'failed' AND retry_count < 5 ORDER BY created_at ASC;
+
+insertSyncQueueItem:
+INSERT INTO sync_queue(entity_type, entity_id, action, payload, status, retry_count, created_at)
+VALUES (?, ?, ?, ?, 'pending', 0, ?);
+
+markSyncItemProcessed:
+UPDATE sync_queue SET status = 'processed', processed_at = ? WHERE id = ?;
+
+markSyncItemFailed:
+UPDATE sync_queue SET status = 'failed', retry_count = retry_count + 1 WHERE id = ?;
+
+deleteSyncItem:
+DELETE FROM sync_queue WHERE id = ?;
+
+deleteProcessedItems:
+DELETE FROM sync_queue WHERE status = 'processed';
+
+getPendingCount:
+SELECT COUNT(*) FROM sync_queue WHERE status = 'pending';
+
+-- Sync State Queries
+
+getSyncState:
+SELECT * FROM sync_state WHERE device_id = ?;
+
+upsertSyncState:
+INSERT OR REPLACE INTO sync_state(device_id, last_version, last_synced_at)
+VALUES (?, ?, ?);
+
+-- Sync Revision Queries
+
+getSyncRevision:
+SELECT * FROM sync_revisions WHERE entity_type = ? AND entity_gid = ?;
+
+upsertSyncRevision:
+INSERT OR REPLACE INTO sync_revisions(entity_type, entity_gid, server_version, local_version, updated_at)
+VALUES (?, ?, ?, ?, ?);
+
+getAllSyncRevisions:
+SELECT * FROM sync_revisions WHERE entity_type = ?;
+
+deleteSyncRevision:
+DELETE FROM sync_revisions WHERE entity_type = ? AND entity_gid = ?;
+
+-- User Preferences Queries
+
+getPreference:
+SELECT * FROM user_preferences WHERE key = ?;
+
+getAllPreferences:
+SELECT * FROM user_preferences;
+
+upsertPreference:
+INSERT OR REPLACE INTO user_preferences(key, value, is_synced, updated_at)
+VALUES (?, ?, ?, ?);
+
+deletePreference:
+DELETE FROM user_preferences WHERE key = ?;
+
+getUnsyncedPreferences:
+SELECT * FROM user_preferences WHERE is_synced = 0;
+
+markPreferenceSynced:
+UPDATE user_preferences SET is_synced = 1 WHERE key = ?;
+
+-- Reading Plan Queries
+
+getAllReadingPlans:
+SELECT * FROM reading_plans WHERE is_active = 1 ORDER BY title;
+
+getReadingPlanById:
+SELECT * FROM reading_plans WHERE id = ?;
+
+insertReadingPlan:
+INSERT OR REPLACE INTO reading_plans(id, title, description, total_days, is_active, created_at)
+VALUES (?, ?, ?, ?, ?, ?);
+
+getReadingPlanDays:
+SELECT * FROM reading_plan_days WHERE reading_plan_id = ? ORDER BY day_number;
+
+insertReadingPlanDay:
+INSERT OR REPLACE INTO reading_plan_days(id, reading_plan_id, day_number, title, description, ari_ranges)
+VALUES (?, ?, ?, ?, ?, ?);
+
+getReadingPlanProgress:
+SELECT * FROM reading_plan_progress WHERE reading_plan_id = ? ORDER BY created_at;
+
+insertReadingPlanProgress:
+INSERT INTO reading_plan_progress(server_id, user_id, reading_plan_id, reading_plan_day_id, completed_at, is_synced, created_at)
+VALUES (?, ?, ?, ?, ?, ?, ?);
+
+-- Song Queries
+
+getAllSongBooks:
+SELECT * FROM song_books WHERE is_active = 1 ORDER BY title;
+
+insertSongBook:
+INSERT OR REPLACE INTO song_books(id, title, description, is_active)
+VALUES (?, ?, ?, ?);
+
+getSongsByBook:
+SELECT * FROM songs WHERE song_book_id = ? ORDER BY number;
+
+getSongById:
+SELECT * FROM songs WHERE id = ?;
+
+searchSongs:
+SELECT * FROM songs WHERE title LIKE '%' || ? || '%' OR lyrics LIKE '%' || ? || '%' ORDER BY song_book_id, number LIMIT 100;
+
+insertSong:
+INSERT OR REPLACE INTO songs(id, song_book_id, number, title, lyrics, author, tune, key_signature, created_at)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
