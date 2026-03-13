@@ -40,7 +40,9 @@ import org.androidbible.ui.theme.*
  * Features: chapter pager, verse selection, bookmark/highlight/note indicators,
  * pericope headers, text appearance settings, commentary panel.
  */
-class BibleReaderScreen : Screen {
+class BibleReaderScreen(
+    private val initialAri: Int = 0,
+) : Screen {
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
@@ -50,6 +52,12 @@ class BibleReaderScreen : Screen {
         val state by viewModel.state.collectAsState()
         var showAppearance by remember { mutableStateOf(false) }
         var showCommentary by remember { mutableStateOf(false) }
+
+        LaunchedEffect(initialAri) {
+            if (initialAri != 0) {
+                viewModel.navigateToAri(initialAri)
+            }
+        }
 
         Scaffold(
             topBar = {

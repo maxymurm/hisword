@@ -26,11 +26,14 @@ import org.androidbible.data.remote.VerseOfTheDay
 import org.androidbible.data.sync.SyncManager
 import org.androidbible.domain.repository.AuthRepository
 import org.androidbible.ui.screens.bible.BibleScreen
+import org.androidbible.ui.screens.devotions.DevotionsScreen
 import org.androidbible.ui.screens.markers.BookmarksScreen
 import org.androidbible.ui.screens.readingplan.ReadingPlanScreen
 import org.androidbible.ui.screens.search.SearchScreen
 import org.androidbible.ui.screens.settings.SettingsScreen
 import org.androidbible.ui.screens.songs.SongsScreen
+import org.androidbible.ui.screens.study.StudyPadScreen
+import org.androidbible.ui.screens.study.WordStudyScreen
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -142,6 +145,36 @@ class HomeScreen : Screen {
                         subtitle = "${state.bookmarkCount} saved",
                         modifier = Modifier.weight(1f),
                         onClick = { navigator.push(BookmarksScreen()) },
+                    )
+                }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                ) {
+                    QuickActionCard(
+                        title = "Daily\nDevotion",
+                        subtitle = "Today's reading",
+                        modifier = Modifier.weight(1f),
+                        onClick = { navigator.push(DevotionsScreen()) },
+                    )
+                    QuickActionCard(
+                        title = "Study\nPad",
+                        subtitle = "Research notes",
+                        modifier = Modifier.weight(1f),
+                        onClick = { navigator.push(StudyPadScreen()) },
+                    )
+                }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                ) {
+                    QuickActionCard(
+                        title = "Word\nStudy",
+                        subtitle = "Strong's lookup",
+                        modifier = Modifier.weight(1f),
+                        onClick = { navigator.push(WordStudyScreen()) },
                     )
                 }
 

@@ -21,6 +21,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import org.androidbible.data.sword.SwordManager
+import org.androidbible.data.sword.SwordModuleConfig
 import org.androidbible.domain.model.Song
 import org.androidbible.domain.model.SongBook
 import org.androidbible.domain.repository.SongRepository
@@ -77,6 +79,19 @@ class SongsScreen : Screen {
                 } else if (state.currentSong != null) {
                     // Song detail with lyrics
                     SongDetailContent(song = state.currentSong!!)
+                } else if (state.currentSwordModuleKey != null && state.swordContent != null) {
+                    // SWORD module content viewer
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .verticalScroll(rememberScrollState())
+                            .padding(16.dp),
+                    ) {
+                        Text(
+                            text = state.swordContent!!,
+                            style = MaterialTheme.typography.bodyLarge,
+                        )
+                    }
                 } else if (state.searchResults.isNotEmpty()) {
                     // Search results
                     LazyColumn(
@@ -125,12 +140,22 @@ class SongsScreen : Screen {
                         }
                     }
                 } else {
-                    // Song books
+                    // Song books + SWORD modules
                     LazyColumn(
                         modifier = Modifier.fillMaxSize(),
                         contentPadding = PaddingValues(16.dp),
                         verticalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
+                        // API-backed song books
+                        if (state.songBooks.isNotEmpty()) {
+                            item {
+                                Text(
+                                    "Song Books",
+                                    style = MaterialTheme.typography.titleSmall,
+                                    modifier = Modifier.padding(bottom = 4.dp),
+                                )
+                            }
+                        }
                         items(state.songBooks) { book ->
                             Card(
                                 modifier = Modifier.fillMaxWidth().clickable {
@@ -145,6 +170,36 @@ class SongsScreen : Screen {
                                             it,
                                             style = MaterialTheme.typography.bodySmall,
                                             color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                        // SWORD-based GenBook modules (hymns, etc.)
+                        if (state.swordSongModules.isNotEmpty()) {
+                            item {
+                                Spacer(modifier = Modifier.height(8.dp))
+                                Text(
+                                    "Local SWORD Modules",
+                                    style = MaterialTheme.typography.titleSmall,
+                                    modifier = Modifier.padding(bottom = 4.dp),
+                                )
+                            }
+                            items(state.swordSongModules) { mod ->
+                                Card(
+                                    modifier = Modifier.fillMaxWidth().clickable {
+                                        screenModel.selectSwordModule(mod)
+                                    },
+                                    colors = CardDefaults.cardColors(
+                                        containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                                    ),
+                                ) {
+                                    Column(modifier = Modifier.padding(16.dp)) {
+                                        Text(mod.description, style = MaterialTheme.typography.titleMedium)
+                                        Text(
+                                            "SWORD \u2022 ${mod.language}",
+                                            style = MaterialTheme.typography.bodySmall,
+                                            color = MaterialTheme.colorScheme.onSecondaryContainer,
                                         )
                                     }
                                 }
@@ -218,11 +273,22 @@ data class SongsState(
     val searchQuery: String = "",
     val searchResults: List<Song> = emptyList(),
     val isLoading: Boolean = false,
+    // SWORD-based hymn/song modules
+    val swordSongModules: List<SwordSongModule> = emptyList(),
+    val currentSwordModuleKey: String? = null,
+    val swordContent: String? = null,
+)
+
+data class SwordSongModule(
+    val key: String,
+    val description: String,
+    val language: String,
 )
 
 class SongsScreenModel : ScreenModel, KoinComponent {
 
     private val songRepo: SongRepository by inject()
+    private val swordManager: SwordManager by inject()
 
     private val _state = MutableStateFlow(SongsState())
     val state: StateFlow<SongsState> = _state.asStateFlow()
@@ -234,6 +300,20 @@ class SongsScreenModel : ScreenModel, KoinComponent {
                 _state.value = _state.value.copy(songBooks = books, isLoading = false)
             }
         }
+        // Load SWORD GenBook modules that could be hymn/song books
+        loadSwordSongModules()
+    }
+
+    private fun loadSwordSongModules() {
+        val genBooks = swordManager.getGenBookModules()
+        val songModules = genBooks.map { (key, config) ->
+            SwordSongModule(
+                key = key,
+                description = config.description.ifBlank { config.moduleName },
+                language = config.language,
+            )
+        }
+        _state.value = _state.value.copy(swordSongModules = songModules)
     }
 
     fun selectBook(book: SongBook) {
@@ -241,6 +321,8 @@ class SongsScreenModel : ScreenModel, KoinComponent {
             currentBookId = book.id,
             currentBookTitle = book.title,
             currentSong = null,
+            currentSwordModuleKey = null,
+            swordContent = null,
             isLoading = true,
         )
         screenModelScope.launch {
@@ -248,6 +330,17 @@ class SongsScreenModel : ScreenModel, KoinComponent {
                 _state.value = _state.value.copy(songs = songs, isLoading = false)
             }
         }
+    }
+
+    fun selectSwordModule(module: SwordSongModule) {
+        val content = swordManager.lookupDictionary(module.key, "")
+        _state.value = _state.value.copy(
+            currentSwordModuleKey = module.key,
+            currentBookTitle = module.description,
+            swordContent = content,
+            currentBookId = null,
+            currentSong = null,
+        )
     }
 
     fun selectSong(song: Song) {
@@ -262,6 +355,11 @@ class SongsScreenModel : ScreenModel, KoinComponent {
                 currentBookId = null,
                 currentBookTitle = null,
                 songs = emptyList(),
+            )
+            s.currentSwordModuleKey != null -> _state.value = s.copy(
+                currentSwordModuleKey = null,
+                currentBookTitle = null,
+                swordContent = null,
             )
         }
     }

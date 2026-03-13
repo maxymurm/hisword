@@ -130,6 +130,14 @@ class BibleReaderViewModel : ScreenModel, KoinComponent {
         saveLastPosition()
     }
 
+    fun navigateToAri(ari: Int) {
+        val bookId = org.androidbible.util.Ari.decodeBook(ari)
+        val chapter = org.androidbible.util.Ari.decodeChapter(ari)
+        if (bookId in 1..66 && chapter > 0) {
+            navigateTo(bookId, chapter)
+        }
+    }
+
     fun nextChapter() {
         val s = _state.value
         if (s.chapter < s.totalChapters) {

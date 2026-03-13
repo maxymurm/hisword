@@ -1,26 +1,37 @@
 package org.androidbible.ui.screens.readingplan
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonPrimitive
 import org.androidbible.domain.model.ReadingPlan
 import org.androidbible.domain.model.ReadingPlanDay
 import org.androidbible.domain.model.ReadingPlanProgress
 import org.androidbible.domain.repository.ReadingPlanRepository
+import org.androidbible.ui.screens.bible.BibleReaderScreen
+import org.androidbible.util.Ari
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -29,6 +40,7 @@ class ReadingPlanScreen : Screen {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
+        val navigator = LocalNavigator.currentOrThrow
         val screenModel = rememberScreenModel { ReadingPlanScreenModel() }
         val state by screenModel.state.collectAsState()
 
@@ -48,6 +60,18 @@ class ReadingPlanScreen : Screen {
                             }
                         }
                     },
+                    actions = {
+                        if (state.selectedPlan != null) {
+                            val plan = state.selectedPlan!!
+                            val completedCount = state.progress.size
+                            val pct = if (plan.totalDays > 0) (completedCount * 100 / plan.totalDays) else 0
+                            Text(
+                                "$pct%",
+                                style = MaterialTheme.typography.labelLarge,
+                                modifier = Modifier.padding(end = 16.dp),
+                            )
+                        }
+                    },
                 )
             }
         ) { padding ->
@@ -59,12 +83,14 @@ class ReadingPlanScreen : Screen {
                     CircularProgressIndicator()
                 }
             } else if (state.selectedPlan != null) {
-                // Plan detail with days
                 PlanDetailContent(
                     plan = state.selectedPlan!!,
                     days = state.days,
                     progress = state.progress,
                     onMarkComplete = { screenModel.markDayComplete(it) },
+                    onNavigateToReading = { ari ->
+                        navigator.push(BibleReaderScreen(initialAri = ari))
+                    },
                     modifier = Modifier.padding(padding),
                 )
             } else if (state.plans.isEmpty()) {
@@ -83,7 +109,6 @@ class ReadingPlanScreen : Screen {
                     }
                 }
             } else {
-                // Plans list
                 LazyColumn(
                     modifier = Modifier.padding(padding).fillMaxSize(),
                     contentPadding = PaddingValues(16.dp),
@@ -150,6 +175,7 @@ fun PlanDetailContent(
     days: List<ReadingPlanDay>,
     progress: List<ReadingPlanProgress>,
     onMarkComplete: (Long) -> Unit,
+    onNavigateToReading: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val completedDayIds = progress.map { it.readingPlanDayId }.toSet()
@@ -159,7 +185,7 @@ fun PlanDetailContent(
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
-        // Plan description
+        // Plan description + overall progress
         item {
             if (!plan.description.isNullOrEmpty()) {
                 Card(
@@ -168,49 +194,109 @@ fun PlanDetailContent(
                         containerColor = MaterialTheme.colorScheme.primaryContainer,
                     ),
                 ) {
-                    Text(
-                        text = plan.description,
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(16.dp),
-                    )
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Text(
+                            text = plan.description,
+                            style = MaterialTheme.typography.bodyMedium,
+                        )
+                        Spacer(modifier = Modifier.height(12.dp))
+                        val overallProgress = if (plan.totalDays > 0)
+                            completedDayIds.size.toFloat() / plan.totalDays else 0f
+                        LinearProgressIndicator(
+                            progress = { overallProgress },
+                            modifier = Modifier.fillMaxWidth(),
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            "${completedDayIds.size} / ${plan.totalDays} days completed",
+                            style = MaterialTheme.typography.labelSmall,
+                        )
+                    }
                 }
                 Spacer(modifier = Modifier.height(8.dp))
             }
         }
 
-        // Days list
+        // Days list with ARI reference chips
         items(days) { day ->
             val isCompleted = completedDayIds.contains(day.id)
+            val ariRanges = parseAriRanges(day.ariRanges)
 
-            ListItem(
-                headlineContent = {
-                    Text(
-                        day.title ?: "Day ${day.dayNumber}",
-                        style = if (isCompleted)
-                            MaterialTheme.typography.bodyLarge.copy(
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                colors = if (isCompleted)
+                    CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                    )
+                else CardDefaults.cardColors(),
+            ) {
+                Column(modifier = Modifier.padding(12.dp)) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        Checkbox(
+                            checked = isCompleted,
+                            onCheckedChange = { if (!isCompleted) onMarkComplete(day.id) },
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                day.title ?: "Day ${day.dayNumber}",
+                                style = MaterialTheme.typography.bodyLarge,
+                                fontWeight = if (!isCompleted) FontWeight.Medium else FontWeight.Normal,
                             )
-                        else MaterialTheme.typography.bodyLarge,
-                    )
-                },
-                supportingContent = {
-                    day.description?.let { Text(it) }
-                },
-                leadingContent = {
-                    Checkbox(
-                        checked = isCompleted,
-                        onCheckedChange = { if (!isCompleted) onMarkComplete(day.id) },
-                    )
-                },
-                trailingContent = {
-                    Text(
-                        "Day ${day.dayNumber}",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                },
-            )
+                            day.description?.let {
+                                Text(
+                                    it,
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                )
+                            }
+                        }
+                        Text(
+                            "Day ${day.dayNumber}",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
+
+                    // ARI reference chips — clickable to navigate
+                    if (ariRanges.isNotEmpty()) {
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Row(
+                            modifier = Modifier.fillMaxWidth().padding(start = 48.dp),
+                            horizontalArrangement = Arrangement.spacedBy(6.dp),
+                        ) {
+                            for (ari in ariRanges.take(4)) {
+                                val ref = Ari.referenceString(ari)
+                                AssistChip(
+                                    onClick = { onNavigateToReading(ari) },
+                                    label = { Text(ref, style = MaterialTheme.typography.labelSmall) },
+                                )
+                            }
+                            if (ariRanges.size > 4) {
+                                Text(
+                                    "+${ariRanges.size - 4}",
+                                    style = MaterialTheme.typography.labelSmall,
+                                    modifier = Modifier.align(Alignment.CenterVertically),
+                                )
+                            }
+                        }
+                    }
+                }
+            }
         }
+    }
+}
+
+/** Parse ariRanges JSON string (e.g., "[65536, 65537]") into list of ARI ints. */
+private fun parseAriRanges(json: String): List<Int> {
+    return try {
+        val arr = Json.parseToJsonElement(json).jsonArray
+        arr.map { it.jsonPrimitive.content.toInt() }
+    } catch (_: Exception) {
+        emptyList()
     }
 }
 
