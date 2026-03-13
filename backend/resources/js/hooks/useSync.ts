@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { usePage } from '@inertiajs/react';
 import { getPendingCount, flushQueue, getLastSync, setLastSync } from '@/services/syncQueue';
 
 export type SyncStatus = 'synced' | 'pending' | 'syncing' | 'offline' | 'error';
@@ -14,6 +15,7 @@ export function useSync(): UseSyncReturn {
     const [status, setStatus] = useState<SyncStatus>(navigator.onLine ? 'synced' : 'offline');
     const [pendingCount, setPendingCount] = useState(0);
     const [lastSync, setLastSyncState] = useState<string | null>(null);
+    const { auth } = usePage<{ auth: { user?: { id: number } } }>().props;
 
     const refresh = useCallback(async () => {
         try {
@@ -68,6 +70,23 @@ export function useSync(): UseSyncReturn {
         };
         navigator.serviceWorker?.addEventListener('message', onMessage);
 
+        // Real-time sync via Laravel Reverb (Pusher protocol)
+        const userId = auth?.user?.id;
+        let echoChannel: ReturnType<typeof window.Echo.private> | null = null;
+        if (userId && typeof window.Echo !== 'undefined') {
+            const deviceId = localStorage.getItem('ps-device-id') ?? '';
+            echoChannel = window.Echo.private(`sync.${userId}`);
+            echoChannel.listen('.marker.changed', (e: { device_id?: string }) => {
+                // Ignore own device's events
+                if (e.device_id === deviceId) return;
+                refresh();
+            });
+            echoChannel.listen('.plan.progress.changed', (e: { device_id?: string }) => {
+                if (e.device_id === deviceId) return;
+                refresh();
+            });
+        }
+
         // Poll every 30s
         const interval = setInterval(refresh, 30000);
 
@@ -76,8 +95,13 @@ export function useSync(): UseSyncReturn {
             window.removeEventListener('offline', onOffline);
             navigator.serviceWorker?.removeEventListener('message', onMessage);
             clearInterval(interval);
+            if (echoChannel) {
+                echoChannel.stopListening('.marker.changed');
+                echoChannel.stopListening('.plan.progress.changed');
+                window.Echo.leave(`sync.${userId}`);
+            }
         };
-    }, [refresh, syncNow]);
+    }, [refresh, syncNow, auth?.user?.id]);
 
     return { status, pendingCount, lastSync, syncNow };
 }

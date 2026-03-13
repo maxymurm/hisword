@@ -7,6 +7,7 @@ use App\Models\Book;
 use App\Models\Highlight;
 use App\Models\Module;
 use App\Models\Note;
+use App\Services\BibleReaderFactory;
 use App\Services\CacheService;
 use App\Services\Sword\SwordManager;
 use App\Services\Sword\Versification\KjvVersification;
@@ -19,6 +20,7 @@ class ReaderController extends Controller
     public function __construct(
         protected CacheService $cache,
         protected SwordManager $swordManager,
+        protected BibleReaderFactory $readerFactory,
         protected KjvVersification $versification,
     ) {}
 
@@ -37,17 +39,17 @@ class ReaderController extends Controller
             $moduleKey = $moduleModel?->key ?? 'KJV';
         }
 
-        // Available Bible modules (cached)
+        // Available Bible modules (cached) — include engine for frontend
         $modules = $this->cache->installedModules('bible', fn () =>
             Module::where('type', 'bible')
                 ->where('is_installed', true)
-                ->select('id', 'key', 'name', 'language', 'description')
+                ->select('id', 'key', 'name', 'language', 'description', 'engine')
                 ->orderBy('name')
                 ->get()
         );
 
-        // Determine if SWORD binary files are available
-        $hasBinaryData = $moduleModel && $this->swordManager->hasDataFiles($moduleModel);
+        // Determine if binary data files are available (SWORD or Bintex)
+        $hasBinaryData = $moduleModel && $this->readerFactory->hasDataFiles($moduleModel);
 
         // Books: derive from versification for binary path, DB fallback
         $books = $hasBinaryData
@@ -76,11 +78,14 @@ class ReaderController extends Controller
             $chapterNumber = 1;
         }
 
-        // Get verses — SWORD binary PRIMARY, DB fallback
+        // Get verses — binary PRIMARY (SWORD or Bintex), DB fallback
         $verses = [];
         if ($hasBinaryData && $moduleModel) {
             $verses = $this->cache->verses($moduleKey, $bookOsis, $chapterNumber, function () use ($moduleModel, $bookOsis, $chapterNumber) {
-                $rawVerses = $this->swordManager->readChapter($moduleModel, $bookOsis, $chapterNumber);
+                $rawVerses = $this->readerFactory->readChapter($moduleModel, $bookOsis, $chapterNumber);
+                if ($rawVerses === null) {
+                    return [];
+                }
                 return collect($rawVerses)->map(fn ($data, $verseNum) => [
                     'number'      => $verseNum,
                     'text'        => $data['html'] ?? $data['raw'] ?? '',
@@ -194,11 +199,14 @@ class ReaderController extends Controller
             return response()->json(['verses' => []]);
         }
 
-        // SWORD binary PRIMARY
+        // Binary PRIMARY (SWORD or Bintex)
         $verses = [];
-        if ($this->swordManager->hasDataFiles($moduleModel)) {
+        if ($this->readerFactory->hasDataFiles($moduleModel)) {
             $verses = $this->cache->verses($module, $book, $chapter, function () use ($moduleModel, $book, $chapter) {
-                $rawVerses = $this->swordManager->readChapter($moduleModel, $book, $chapter);
+                $rawVerses = $this->readerFactory->readChapter($moduleModel, $book, $chapter);
+                if ($rawVerses === null) {
+                    return [];
+                }
                 return collect($rawVerses)->map(fn ($data, $verseNum) => [
                     'number' => $verseNum,
                     'text'   => $data['html'] ?? $data['raw'] ?? '',

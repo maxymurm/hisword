@@ -17,6 +17,7 @@ interface BibleModule {
     name: string;
     language: string;
     description?: string;
+    engine?: string;
 }
 
 interface BookInfo {
@@ -104,6 +105,10 @@ export default function Reader() {
         highlights, notes,
         commentaryModules, dictionaryModules,
     } = props;
+
+    const currentModule = modules.find(m => m.key === moduleKey);
+    const isBintex = currentModule?.engine === 'bintex';
+    const hasCommentary = !isBintex && commentaryModules.length > 0;
 
     // Local state
     const [fontSize, setFontSize] = useState(() => {
@@ -380,8 +385,8 @@ export default function Reader() {
 
                         {/* Right: Settings */}
                         <div className="flex items-center gap-1">
-                            {/* Strong's toggle */}
-                            {dictionaryModules.length > 0 && (
+                            {/* Strong's toggle (SWORD modules only) */}
+                            {!isBintex && dictionaryModules.length > 0 && (
                                 <button
                                     onClick={() => setShowStrongs(!showStrongs)}
                                     className={`rounded p-1.5 transition-colors ${showStrongs ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20' : 'text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800'}`}
@@ -434,7 +439,7 @@ export default function Reader() {
                             >
                                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h10.5" /></svg>
                             </button>
-                            {commentaryModules.length > 0 && (
+                            {hasCommentary && (
                                 <button
                                     onClick={() => setShowCommentary(!showCommentary)}
                                     className={`rounded p-1.5 transition-colors ${showCommentary ? 'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20' : 'text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800'}`}
@@ -633,7 +638,7 @@ export default function Reader() {
                 </div>
 
                     {/* Commentary panel (desktop: side panel, mobile: bottom sheet) */}
-                    {showCommentary && commentaryModules.length > 0 && (
+                    {showCommentary && hasCommentary && (
                         <>
                             {/* Desktop side panel */}
                             <div className="hidden lg:flex w-96 flex-none flex-col overflow-hidden">
@@ -851,7 +856,12 @@ function ModuleSelector({ modules, currentModule, bookOsis, chapter, onSelect, o
                                     : 'bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700'
                             }`}
                         >
-                            <span className="text-sm font-semibold text-gray-900 dark:text-white">{mod.key}</span>
+                            <div className="flex items-center gap-1.5">
+                                <span className="text-sm font-semibold text-gray-900 dark:text-white">{mod.key}</span>
+                                {mod.engine === 'bintex' && (
+                                    <span className="px-1 py-0.5 text-[10px] font-medium rounded bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300">YES2</span>
+                                )}
+                            </div>
                             <span className="text-xs text-gray-500 dark:text-gray-400 truncate">{mod.name}</span>
                         </button>
                     ))}

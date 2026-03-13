@@ -31,6 +31,7 @@ class ModuleController extends Controller
         $language = $request->query('language');
         $search = $request->query('search');
         $filter = $request->query('filter', 'all'); // all, installed, available
+        $engine = $request->query('engine');
 
         $query = Module::query();
 
@@ -39,6 +40,9 @@ class ModuleController extends Controller
         }
         if ($language) {
             $query->where('language', $language);
+        }
+        if ($engine) {
+            $query->where('engine', $engine);
         }
         if ($search) {
             $query->where(function ($q) use ($search) {
@@ -82,6 +86,7 @@ class ModuleController extends Controller
                 'language' => $language,
                 'search' => $search,
                 'filter' => $filter,
+                'engine' => $engine,
             ],
             'activeDownloads' => $activeDownloads,
             'sources' => ModuleSource::where('is_active', true)->get(),

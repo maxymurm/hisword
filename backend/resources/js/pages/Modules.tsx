@@ -24,6 +24,7 @@ interface Module {
     about: string | null;
     file_size: number | null;
     install_size: number | null;
+    engine: string | null;
 }
 
 interface ModuleSource {
@@ -46,6 +47,7 @@ interface Props extends PageProps {
         language: string | null;
         search: string | null;
         filter: string;
+        engine: string | null;
     };
     activeDownloads: Record<string, DownloadProgress>;
     sources: ModuleSource[];
@@ -297,6 +299,17 @@ export default function Modules({ modules, counts, types, languages, filters, ac
                                 <option key={l} value={l}>{l}</option>
                             ))}
                         </select>
+
+                        {/* Engine filter */}
+                        <select
+                            value={filters.engine ?? ''}
+                            onChange={(e) => handleFilter('engine', e.target.value || undefined)}
+                            className="px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                        >
+                            <option value="">All Engines</option>
+                            <option value="sword">SWORD</option>
+                            <option value="bintex">YES2 (Bintex)</option>
+                        </select>
                     </div>
                 </Card>
 
@@ -434,6 +447,11 @@ function ModuleCard({
                             Bundled
                         </span>
                     )}
+                    {module.engine === 'bintex' && (
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300">
+                            YES2
+                        </span>
+                    )}
                 </div>
 
                 {module.description && (
@@ -477,6 +495,7 @@ function ModuleDetails({ module }: { module: Module }) {
     const rows: [string, string | null][] = [
         ['Key', module.key],
         ['Type', module.type],
+        ['Engine', module.engine === 'bintex' ? 'YES2 (Bintex)' : 'SWORD'],
         ['Language', module.language],
         ['Version', module.version],
         ['Driver', module.mod_drv],

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Broadcast;
 
 // Private user sync channel — only the authenticated user can listen
 Broadcast::channel('sync.{userId}', function (User $user, string $userId) {
-    return $user->id === $userId;
+    return (string) $user->id === $userId;
 });
 
 // Presence channel for online status (optional future use)
