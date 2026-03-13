@@ -40,6 +40,7 @@ class BookmarksScreen : Screen {
         var selectedTab by remember { mutableStateOf(0) }
         var showCreateLabelDialog by remember { mutableStateOf(false) }
         var showEditMarkerDialog by remember { mutableStateOf<Marker?>(null) }
+        var showSortMenu by remember { mutableStateOf(false) }
 
         Scaffold(
             topBar = {
@@ -49,6 +50,36 @@ class BookmarksScreen : Screen {
                         containerColor = MaterialTheme.colorScheme.primaryContainer,
                     ),
                     actions = {
+                        Box {
+                            IconButton(onClick = { showSortMenu = true }) {
+                                Text("\u2195", style = MaterialTheme.typography.titleLarge)
+                            }
+                            DropdownMenu(
+                                expanded = showSortMenu,
+                                onDismissRequest = { showSortMenu = false },
+                            ) {
+                                SortOrder.entries.forEach { order ->
+                                    DropdownMenuItem(
+                                        text = {
+                                            Text(
+                                                when (order) {
+                                                    SortOrder.NEWEST -> "Newest First"
+                                                    SortOrder.OLDEST -> "Oldest First"
+                                                    SortOrder.BOOK_ORDER -> "Book Order"
+                                                }
+                                            )
+                                        },
+                                        onClick = {
+                                            screenModel.setSortOrder(order)
+                                            showSortMenu = false
+                                        },
+                                        trailingIcon = {
+                                            if (state.sortOrder == order) Text("\u2713")
+                                        },
+                                    )
+                                }
+                            }
+                        }
                         IconButton(onClick = { showCreateLabelDialog = true }) {
                             Text("+", style = MaterialTheme.typography.titleLarge)
                         }
@@ -57,6 +88,17 @@ class BookmarksScreen : Screen {
             }
         ) { padding ->
             Column(modifier = Modifier.padding(padding)) {
+                // Search bar
+                OutlinedTextField(
+                    value = state.searchQuery,
+                    onValueChange = { screenModel.setSearchQuery(it) },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                    placeholder = { Text("Search notes...") },
+                    singleLine = true,
+                )
+
                 // Tabs for Bookmarks, Notes, Highlights
                 TabRow(selectedTabIndex = selectedTab) {
                     Tab(
@@ -374,7 +416,11 @@ data class BookmarksState(
     val isLoading: Boolean = false,
     val currentKind: Int? = null,
     val selectedLabelId: Long? = null,
+    val searchQuery: String = "",
+    val sortOrder: SortOrder = SortOrder.NEWEST,
 )
+
+enum class SortOrder { NEWEST, OLDEST, BOOK_ORDER }
 
 class BookmarksScreenModel : ScreenModel, KoinComponent {
 
@@ -403,15 +449,54 @@ class BookmarksScreenModel : ScreenModel, KoinComponent {
 
     fun filterByLabel(labelId: Long?) {
         _state.value = _state.value.copy(selectedLabelId = labelId)
-        // Re-filter current markers by label
-        loadMarkers(_state.value.currentKind)
+        if (labelId != null) {
+            screenModelScope.launch {
+                markerRepo.getMarkersForLabel(labelId).collect { markers ->
+                    val kind = _state.value.currentKind
+                    val filtered = if (kind != null) markers.filter { it.kind == kind } else markers
+                    _state.value = _state.value.copy(markers = applySorting(filtered), isLoading = false)
+                }
+            }
+        } else {
+            loadMarkers(_state.value.currentKind)
+        }
+    }
+
+    fun setSearchQuery(query: String) {
+        _state.value = _state.value.copy(searchQuery = query)
+        if (query.isBlank()) {
+            loadMarkers(_state.value.currentKind)
+        } else {
+            screenModelScope.launch {
+                markerRepo.searchMarkers(query).collect { markers ->
+                    val kind = _state.value.currentKind
+                    val filtered = if (kind != null) markers.filter { it.kind == kind } else markers
+                    _state.value = _state.value.copy(markers = applySorting(filtered), isLoading = false)
+                }
+            }
+        }
+    }
+
+    fun setSortOrder(order: SortOrder) {
+        _state.value = _state.value.copy(
+            sortOrder = order,
+            markers = applySorting(_state.value.markers, order),
+        )
+    }
+
+    private fun applySorting(markers: List<Marker>, order: SortOrder? = null): List<Marker> {
+        return when (order ?: _state.value.sortOrder) {
+            SortOrder.NEWEST -> markers.sortedByDescending { it.createdAt ?: "" }
+            SortOrder.OLDEST -> markers.sortedBy { it.createdAt ?: "" }
+            SortOrder.BOOK_ORDER -> markers.sortedBy { it.ari }
+        }
     }
 
     private fun loadMarkers(kind: Int?) {
         _state.value = _state.value.copy(isLoading = true)
         screenModelScope.launch {
             markerRepo.getMarkers(kind).collect { markers ->
-                _state.value = _state.value.copy(markers = markers, isLoading = false)
+                _state.value = _state.value.copy(markers = applySorting(markers), isLoading = false)
             }
         }
     }

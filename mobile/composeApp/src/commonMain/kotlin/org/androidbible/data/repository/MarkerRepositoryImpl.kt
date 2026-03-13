@@ -36,6 +36,21 @@ class MarkerRepositoryImpl(
         }
     }
 
+    override fun getMarkersByAriRange(startAri: Int, endAri: Int): Flow<List<Marker>> {
+        return db.markerQueries.getMarkersByAriRange(startAri.toLong(), endAri.toLong())
+            .asFlow().mapToList(Dispatchers.IO).map { rows -> rows.map { it.toMarker() } }
+    }
+
+    override fun getMarkersForLabel(labelId: Long): Flow<List<Marker>> {
+        return db.markerQueries.getMarkersForLabel(labelId)
+            .asFlow().mapToList(Dispatchers.IO).map { rows -> rows.map { it.toMarker() } }
+    }
+
+    override fun searchMarkers(query: String): Flow<List<Marker>> {
+        return db.markerQueries.searchMarkersByCaption("%$query%")
+            .asFlow().mapToList(Dispatchers.IO).map { rows -> rows.map { it.toMarker() } }
+    }
+
     override suspend fun getMarker(id: Long): Marker? {
         return db.markerQueries.getMarkerById(id).executeAsOneOrNull()?.toMarker()
     }
@@ -89,6 +104,15 @@ class MarkerRepositoryImpl(
         enqueueSyncAction("marker", marker.gid, "delete", marker)
     }
 
+    override suspend fun deleteMarkers(ids: List<Long>) {
+        val now = Clock.System.now().toString()
+        db.markerQueries.softDeleteMarkers(deleted_at = now, updated_at = now, ids)
+    }
+
+    override suspend fun getAllMarkersSnapshot(): List<Marker> {
+        return db.markerQueries.getAllMarkersSnapshot().executeAsList().map { it.toMarker() }
+    }
+
     override fun getLabels(): Flow<List<Label>> {
         return db.markerQueries.getAllLabels().asFlow().mapToList(Dispatchers.IO).map { rows ->
             rows.map { it.toLabel() }
@@ -136,6 +160,14 @@ class MarkerRepositoryImpl(
 
     override suspend fun detachLabel(markerId: Long, labelId: Long) {
         db.markerQueries.detachLabel(markerId, labelId)
+    }
+
+    override suspend fun attachLabelBulk(markerIds: List<Long>, labelId: Long) {
+        db.transaction {
+            for (markerId in markerIds) {
+                db.markerQueries.attachLabel(markerId, labelId)
+            }
+        }
     }
 
     override fun getLabelsForMarker(markerId: Long): Flow<List<Label>> {

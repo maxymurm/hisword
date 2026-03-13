@@ -209,6 +209,53 @@ class BibleReaderViewModel : ScreenModel, KoinComponent {
         }
     }
 
+    /**
+     * Select a contiguous range of verses between two ARIs (inclusive).
+     * Selects all verses in the current chapter whose ARI falls in [startAri..endAri].
+     */
+    fun selectRange(startAri: Int, endAri: Int) {
+        val low = minOf(startAri, endAri)
+        val high = maxOf(startAri, endAri)
+        val verseAris = _state.value.items
+            .filterIsInstance<ReaderItem.VerseItemData>()
+            .map { it.verse.ari }
+            .filter { it in low..high }
+            .toSet()
+        _state.value = _state.value.copy(
+            selectedAris = verseAris,
+            showVerseActions = verseAris.isNotEmpty(),
+        )
+        rebuildItems()
+    }
+
+    /** Attach a label to all most-recently-created markers for selected verses. */
+    fun attachLabelToSelected(labelId: Long) {
+        screenModelScope.launch {
+            for (ari in _state.value.selectedAris) {
+                val markers = bookmarkCache[ari] ?: highlightCache[ari]?.let { null } ?: noteCache[ari]
+                if (markers != null) {
+                    markerRepo.attachLabel(markers.id, labelId)
+                }
+            }
+        }
+    }
+
+    /** Delete all markers at the selected verse ARIs. */
+    fun deleteSelectedMarkers() {
+        screenModelScope.launch {
+            val ids = _state.value.selectedAris.flatMap { ari ->
+                listOfNotNull(
+                    bookmarkCache[ari]?.id,
+                    noteCache[ari]?.id,
+                )
+            }
+            if (ids.isNotEmpty()) {
+                markerRepo.deleteMarkers(ids)
+            }
+            clearSelection()
+        }
+    }
+
     fun setFontSize(size: Int) {
         _state.value = _state.value.copy(fontSize = size.coerceIn(10, 32))
         settings.putInt(KEY_FONT_SIZE, _state.value.fontSize)

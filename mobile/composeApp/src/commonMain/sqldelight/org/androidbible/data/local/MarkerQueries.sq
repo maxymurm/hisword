@@ -9,6 +9,15 @@ SELECT * FROM markers WHERE kind = ? AND deleted_at IS NULL ORDER BY created_at 
 getMarkersByAri:
 SELECT * FROM markers WHERE ari = ? AND deleted_at IS NULL;
 
+getMarkersByAriRange:
+SELECT * FROM markers WHERE ari >= ? AND ari <= ? AND deleted_at IS NULL;
+
+searchMarkersByCaption:
+SELECT * FROM markers WHERE caption LIKE ? AND deleted_at IS NULL ORDER BY created_at DESC;
+
+getAllMarkersSnapshot:
+SELECT * FROM markers WHERE deleted_at IS NULL ORDER BY ari;
+
 getMarkerById:
 SELECT * FROM markers WHERE id = ?;
 
@@ -24,6 +33,9 @@ UPDATE markers SET ari = ?, kind = ?, caption = ?, verse_count = ?, color = ?, i
 
 softDeleteMarker:
 UPDATE markers SET deleted_at = ?, is_synced = 0, updated_at = ? WHERE id = ?;
+
+softDeleteMarkers:
+UPDATE markers SET deleted_at = ?, is_synced = 0, updated_at = ? WHERE id IN ?;
 
 getUnsyncedMarkers:
 SELECT * FROM markers WHERE is_synced = 0;

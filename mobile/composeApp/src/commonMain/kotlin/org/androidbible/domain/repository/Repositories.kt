@@ -19,16 +19,22 @@ interface BibleRepository {
 interface MarkerRepository {
     fun getMarkers(kind: Int? = null): Flow<List<Marker>>
     fun getMarkersByAri(ari: Int): Flow<List<Marker>>
+    fun getMarkersByAriRange(startAri: Int, endAri: Int): Flow<List<Marker>>
+    fun getMarkersForLabel(labelId: Long): Flow<List<Marker>>
+    fun searchMarkers(query: String): Flow<List<Marker>>
     suspend fun getMarker(id: Long): Marker?
     suspend fun createMarker(marker: Marker): Marker
     suspend fun updateMarker(marker: Marker): Marker
     suspend fun deleteMarker(id: Long)
+    suspend fun deleteMarkers(ids: List<Long>)
+    suspend fun getAllMarkersSnapshot(): List<Marker>
     fun getLabels(): Flow<List<Label>>
     suspend fun createLabel(label: Label): Label
     suspend fun updateLabel(label: Label): Label
     suspend fun deleteLabel(id: Long)
     suspend fun attachLabel(markerId: Long, labelId: Long)
     suspend fun detachLabel(markerId: Long, labelId: Long)
+    suspend fun attachLabelBulk(markerIds: List<Long>, labelId: Long)
     fun getLabelsForMarker(markerId: Long): Flow<List<Label>>
 }
 
