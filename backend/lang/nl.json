@@ -1,0 +1,89 @@
+{
+    "app": {
+        "name": "HisWord",
+        "tagline": "Uw bijbelgenoot"
+    },
+    "nav": {
+        "read": "Lezen",
+        "search": "Zoeken",
+        "bookmarks": "Bladwijzers",
+        "notes": "Notities",
+        "plans": "Leesplannen",
+        "settings": "Instellingen",
+        "home": "Home"
+    },
+    "auth": {
+        "login": "Inloggen",
+        "register": "Registreren",
+        "logout": "Uitloggen",
+        "email": "E-mail",
+        "password": "Wachtwoord",
+        "confirm_password": "Wachtwoord bevestigen",
+        "name": "Naam",
+        "forgot_password": "Wachtwoord vergeten?",
+        "reset_password": "Wachtwoord herstellen",
+        "remember_me": "Onthoud mij",
+        "or_continue_with": "Of doorgaan met",
+        "already_have_account": "Heeft u al een account?",
+        "dont_have_account": "Heeft u geen account?",
+        "verify_email": "Verifieer uw e-mail"
+    },
+    "reader": {
+        "chapter": "Hoofdstuk",
+        "verse": "Vers",
+        "previous": "Vorige",
+        "next": "Volgende",
+        "select_module": "Vertaling kiezen",
+        "select_book": "Boek kiezen",
+        "select_chapter": "Hoofdstuk kiezen",
+        "no_verses": "Geen verzen gevonden",
+        "old_testament": "Oude Testament",
+        "new_testament": "Nieuwe Testament",
+        "commentary": "Commentaar",
+        "dictionary": "Woordenboek",
+        "strongs": "Strong-nummers",
+        "footnotes": "Voetnoten",
+        "cross_references": "Kruisverwijzingen"
+    },
+    "search": {
+        "title": "Zoeken",
+        "placeholder": "Zoeken in de Bijbel...",
+        "results": "Resultaten",
+        "no_results": "Geen resultaten gevonden",
+        "searching": "Zoeken...",
+        "scope_all": "Alles",
+        "scope_ot": "Oude Testament",
+        "scope_nt": "Nieuwe Testament",
+        "scope_book": "Huidig boek",
+        "result_count": "{count} resultaat | {count} resultaten"
+    },
+    "common": {
+        "save": "Opslaan",
+        "cancel": "Annuleren",
+        "delete": "Verwijderen",
+        "edit": "Bewerken",
+        "close": "Sluiten",
+        "loading": "Laden...",
+        "error": "Er is een fout opgetreden",
+        "retry": "Opnieuw proberen",
+        "confirm": "Bevestigen",
+        "yes": "Ja",
+        "no": "Nee",
+        "ok": "OK",
+        "share": "Delen",
+        "copy": "Kopiëren",
+        "copied": "Gekopieerd!",
+        "export": "Exporteren",
+        "import": "Importeren",
+        "select_all": "Alles selecteren",
+        "deselect_all": "Selectie opheffen"
+    },
+    "errors": {
+        "not_found": "Pagina niet gevonden",
+        "unauthorized": "Niet geautoriseerd",
+        "forbidden": "U heeft geen toegang tot deze bron",
+        "server_error": "Er ging iets mis. Probeer het opnieuw.",
+        "network_error": "Controleer uw internetverbinding",
+        "validation_error": "Controleer uw invoer"
+    }
+}

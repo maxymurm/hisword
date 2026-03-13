@@ -1,0 +1,89 @@
+{
+    "app": {
+        "name": "HisWord",
+        "tagline": "Din bibelkompanjon"
+    },
+    "nav": {
+        "read": "Läsa",
+        "search": "Sök",
+        "bookmarks": "Bokmärken",
+        "notes": "Anteckningar",
+        "plans": "Läsplaner",
+        "settings": "Inställningar",
+        "home": "Hem"
+    },
+    "auth": {
+        "login": "Logga in",
+        "register": "Registrera",
+        "logout": "Logga ut",
+        "email": "E-post",
+        "password": "Lösenord",
+        "confirm_password": "Bekräfta lösenord",
+        "name": "Namn",
+        "forgot_password": "Glömt lösenordet?",
+        "reset_password": "Återställ lösenord",
+        "remember_me": "Kom ihåg mig",
+        "or_continue_with": "Eller fortsätt med",
+        "already_have_account": "Har du redan ett konto?",
+        "dont_have_account": "Har du inget konto?",
+        "verify_email": "Verifiera din e-post"
+    },
+    "reader": {
+        "chapter": "Kapitel",
+        "verse": "Vers",
+        "previous": "Föregående",
+        "next": "Nästa",
+        "select_module": "Välj översättning",
+        "select_book": "Välj bok",
+        "select_chapter": "Välj kapitel",
+        "no_verses": "Inga verser hittades",
+        "old_testament": "Gamla testamentet",
+        "new_testament": "Nya testamentet",
+        "commentary": "Kommentar",
+        "dictionary": "Ordbok",
+        "strongs": "Strongs nummer",
+        "footnotes": "Fotnoter",
+        "cross_references": "Korsreferenser"
+    },
+    "search": {
+        "title": "Sök",
+        "placeholder": "Sök i Bibeln...",
+        "results": "Resultat",
+        "no_results": "Inga resultat hittades",
+        "searching": "Söker...",
+        "scope_all": "Allt",
+        "scope_ot": "Gamla testamentet",
+        "scope_nt": "Nya testamentet",
+        "scope_book": "Nuvarande bok",
+        "result_count": "{count} resultat"
+    },
+    "common": {
+        "save": "Spara",
+        "cancel": "Avbryt",
+        "delete": "Ta bort",
+        "edit": "Redigera",
+        "close": "Stäng",
+        "loading": "Laddar...",
+        "error": "Ett fel uppstod",
+        "retry": "Försök igen",
+        "confirm": "Bekräfta",
+        "yes": "Ja",
+        "no": "Nej",
+        "ok": "OK",
+        "share": "Dela",
+        "copy": "Kopiera",
+        "copied": "Kopierat!",
+        "export": "Exportera",
+        "import": "Importera",
+        "select_all": "Markera alla",
+        "deselect_all": "Avmarkera alla"
+    },
+    "errors": {
+        "not_found": "Sidan hittades inte",
+        "unauthorized": "Ej behörig",
+        "forbidden": "Du har inte tillgång till denna resurs",
+        "server_error": "Något gick fel. Försök igen.",
+        "network_error": "Kontrollera din internetanslutning",
+        "validation_error": "Kontrollera dina uppgifter"
+    }
+}

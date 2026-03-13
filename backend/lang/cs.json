@@ -1,0 +1,89 @@
+{
+    "app": {
+        "name": "HisWord",
+        "tagline": "Váš biblický společník"
+    },
+    "nav": {
+        "read": "Číst",
+        "search": "Hledat",
+        "bookmarks": "Záložky",
+        "notes": "Poznámky",
+        "plans": "Plány čtení",
+        "settings": "Nastavení",
+        "home": "Domů"
+    },
+    "auth": {
+        "login": "Přihlásit se",
+        "register": "Registrovat se",
+        "logout": "Odhlásit se",
+        "email": "E-mail",
+        "password": "Heslo",
+        "confirm_password": "Potvrdit heslo",
+        "name": "Jméno",
+        "forgot_password": "Zapomenuté heslo?",
+        "reset_password": "Obnovit heslo",
+        "remember_me": "Zapamatovat si mě",
+        "or_continue_with": "Nebo pokračovat přes",
+        "already_have_account": "Máte již účet?",
+        "dont_have_account": "Nemáte účet?",
+        "verify_email": "Ověřte svůj e-mail"
+    },
+    "reader": {
+        "chapter": "Kapitola",
+        "verse": "Verš",
+        "previous": "Předchozí",
+        "next": "Další",
+        "select_module": "Vybrat překlad",
+        "select_book": "Vybrat knihu",
+        "select_chapter": "Vybrat kapitolu",
+        "no_verses": "Nebyly nalezeny žádné verše",
+        "old_testament": "Starý zákon",
+        "new_testament": "Nový zákon",
+        "commentary": "Komentář",
+        "dictionary": "Slovník",
+        "strongs": "Strongova čísla",
+        "footnotes": "Poznámky pod čarou",
+        "cross_references": "Křížové odkazy"
+    },
+    "search": {
+        "title": "Hledání",
+        "placeholder": "Hledat v Bibli...",
+        "results": "Výsledky",
+        "no_results": "Nebyly nalezeny žádné výsledky",
+        "searching": "Hledání...",
+        "scope_all": "Vše",
+        "scope_ot": "Starý zákon",
+        "scope_nt": "Nový zákon",
+        "scope_book": "Současná kniha",
+        "result_count": "{count} výsledek | {count} výsledků"
+    },
+    "common": {
+        "save": "Uložit",
+        "cancel": "Zrušit",
+        "delete": "Smazat",
+        "edit": "Upravit",
+        "close": "Zavřít",
+        "loading": "Načítání...",
+        "error": "Došlo k chybě",
+        "retry": "Zkusit znovu",
+        "confirm": "Potvrdit",
+        "yes": "Ano",
+        "no": "Ne",
+        "ok": "OK",
+        "share": "Sdílet",
+        "copy": "Kopírovat",
+        "copied": "Zkopírováno!",
+        "export": "Exportovat",
+        "import": "Importovat",
+        "select_all": "Vybrat vše",
+        "deselect_all": "Zrušit výběr"
+    },
+    "errors": {
+        "not_found": "Stránka nenalezena",
+        "unauthorized": "Neautorizováno",
+        "forbidden": "Nemáte oprávnění k přístupu k tomuto zdroji",
+        "server_error": "Něco se pokazilo. Zkuste to znovu.",
+        "network_error": "Zkontrolujte připojení k internetu",
+        "validation_error": "Zkontrolujte zadané údaje"
+    }
+}

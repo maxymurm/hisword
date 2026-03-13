@@ -1,0 +1,89 @@
+{
+    "app": {
+        "name": "HisWord",
+        "tagline": "Votre compagnon biblique"
+    },
+    "nav": {
+        "read": "Lire",
+        "search": "Rechercher",
+        "bookmarks": "Signets",
+        "notes": "Notes",
+        "plans": "Plans de lecture",
+        "settings": "Paramètres",
+        "home": "Accueil"
+    },
+    "auth": {
+        "login": "Connexion",
+        "register": "Inscription",
+        "logout": "Déconnexion",
+        "email": "E-mail",
+        "password": "Mot de passe",
+        "confirm_password": "Confirmer le mot de passe",
+        "name": "Nom",
+        "forgot_password": "Mot de passe oublié ?",
+        "reset_password": "Réinitialiser le mot de passe",
+        "remember_me": "Se souvenir de moi",
+        "or_continue_with": "Ou continuer avec",
+        "already_have_account": "Déjà un compte ?",
+        "dont_have_account": "Pas encore de compte ?",
+        "verify_email": "Vérifiez votre e-mail"
+    },
+    "reader": {
+        "chapter": "Chapitre",
+        "verse": "Verset",
+        "previous": "Précédent",
+        "next": "Suivant",
+        "select_module": "Choisir la traduction",
+        "select_book": "Choisir le livre",
+        "select_chapter": "Choisir le chapitre",
+        "no_verses": "Aucun verset trouvé",
+        "old_testament": "Ancien Testament",
+        "new_testament": "Nouveau Testament",
+        "commentary": "Commentaire",
+        "dictionary": "Dictionnaire",
+        "strongs": "Numéros de Strong",
+        "footnotes": "Notes de bas de page",
+        "cross_references": "Références croisées"
+    },
+    "search": {
+        "title": "Recherche",
+        "placeholder": "Rechercher dans la Bible...",
+        "results": "Résultats",
+        "no_results": "Aucun résultat trouvé",
+        "searching": "Recherche en cours...",
+        "scope_all": "Tout",
+        "scope_ot": "Ancien Testament",
+        "scope_nt": "Nouveau Testament",
+        "scope_book": "Livre actuel",
+        "result_count": "{count} résultat | {count} résultats"
+    },
+    "common": {
+        "save": "Enregistrer",
+        "cancel": "Annuler",
+        "delete": "Supprimer",
+        "edit": "Modifier",
+        "close": "Fermer",
+        "loading": "Chargement...",
+        "error": "Une erreur est survenue",
+        "retry": "Réessayer",
+        "confirm": "Confirmer",
+        "yes": "Oui",
+        "no": "Non",
+        "ok": "OK",
+        "share": "Partager",
+        "copy": "Copier",
+        "copied": "Copié !",
+        "export": "Exporter",
+        "import": "Importer",
+        "select_all": "Tout sélectionner",
+        "deselect_all": "Tout désélectionner"
+    },
+    "errors": {
+        "not_found": "Page non trouvée",
+        "unauthorized": "Non autorisé",
+        "forbidden": "Accès interdit à cette ressource",
+        "server_error": "Une erreur est survenue. Veuillez réessayer.",
+        "network_error": "Vérifiez votre connexion internet",
+        "validation_error": "Veuillez vérifier vos données"
+    }
+}

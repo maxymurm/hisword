@@ -1,0 +1,39 @@
+{
+    "$schema": "https://www.schemastore.org/package.json",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "vite build",
+        "build:ssr": "vite build; vite build --ssr",
+        "dev": "vite",
+        "typecheck": "tsc --noEmit",
+        "format": "prettier --write resources/js/**/*.{ts,tsx}",
+        "format:check": "prettier --check resources/js/**/*.{ts,tsx}",
+        "test:e2e": "npx playwright test",
+        "test:e2e:ui": "npx playwright test --ui"
+    },
+    "devDependencies": {
+        "@playwright/test": "^1.52.0",
+        "@tailwindcss/vite": "^4.0.0",
+        "@types/node": "^25.3.3",
+        "@typescript-eslint/eslint-plugin": "^8.56.1",
+        "@typescript-eslint/parser": "^8.56.1",
+        "axios": "^1.11.0",
+        "concurrently": "^9.0.1",
+        "eslint": "^9.39.3",
+        "eslint-plugin-react-hooks": "^7.0.1",
+        "laravel-vite-plugin": "^2.0.0",
+        "prettier": "^3.8.1",
+        "tailwindcss": "^4.0.0",
+        "vite": "^7.0.7"
+    },
+    "dependencies": {
+        "@inertiajs/react": "^2.3.17",
+        "@types/react": "^19.2.14",
+        "@types/react-dom": "^19.2.3",
+        "@vitejs/plugin-react": "^5.1.4",
+        "react": "^19.2.4",
+        "react-dom": "^19.2.4",
+        "typescript": "^5.9.3"
+    }
+}

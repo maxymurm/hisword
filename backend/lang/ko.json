@@ -1,0 +1,89 @@
+{
+    "app": {
+        "name": "HisWord",
+        "tagline": "당신의 성경 동반자"
+    },
+    "nav": {
+        "read": "읽기",
+        "search": "검색",
+        "bookmarks": "북마크",
+        "notes": "노트",
+        "plans": "읽기 계획",
+        "settings": "설정",
+        "home": "홈"
+    },
+    "auth": {
+        "login": "로그인",
+        "register": "회원가입",
+        "logout": "로그아웃",
+        "email": "이메일",
+        "password": "비밀번호",
+        "confirm_password": "비밀번호 확인",
+        "name": "이름",
+        "forgot_password": "비밀번호를 잊으셨나요?",
+        "reset_password": "비밀번호 재설정",
+        "remember_me": "로그인 유지",
+        "or_continue_with": "또는 다음으로 계속",
+        "already_have_account": "이미 계정이 있으신가요?",
+        "dont_have_account": "계정이 없으신가요?",
+        "verify_email": "이메일을 인증해주세요"
+    },
+    "reader": {
+        "chapter": "장",
+        "verse": "절",
+        "previous": "이전",
+        "next": "다음",
+        "select_module": "번역 선택",
+        "select_book": "책 선택",
+        "select_chapter": "장 선택",
+        "no_verses": "절을 찾을 수 없습니다",
+        "old_testament": "구약성경",
+        "new_testament": "신약성경",
+        "commentary": "주석",
+        "dictionary": "사전",
+        "strongs": "스트롱 번호",
+        "footnotes": "각주",
+        "cross_references": "상호참조"
+    },
+    "search": {
+        "title": "검색",
+        "placeholder": "성경 검색...",
+        "results": "결과",
+        "no_results": "결과를 찾을 수 없습니다",
+        "searching": "검색 중...",
+        "scope_all": "전체",
+        "scope_ot": "구약성경",
+        "scope_nt": "신약성경",
+        "scope_book": "현재 책",
+        "result_count": "{count}개 결과"
+    },
+    "common": {
+        "save": "저장",
+        "cancel": "취소",
+        "delete": "삭제",
+        "edit": "편집",
+        "close": "닫기",
+        "loading": "로딩 중...",
+        "error": "오류가 발생했습니다",
+        "retry": "재시도",
+        "confirm": "확인",
+        "yes": "예",
+        "no": "아니오",
+        "ok": "확인",
+        "share": "공유",
+        "copy": "복사",
+        "copied": "복사되었습니다!",
+        "export": "내보내기",
+        "import": "가져오기",
+        "select_all": "모두 선택",
+        "deselect_all": "선택 해제"
+    },
+    "errors": {
+        "not_found": "페이지를 찾을 수 없습니다",
+        "unauthorized": "인증되지 않음",
+        "forbidden": "이 리소스에 접근할 수 없습니다",
+        "server_error": "오류가 발생했습니다. 다시 시도해주세요.",
+        "network_error": "인터넷 연결을 확인해주세요",
+        "validation_error": "입력 내용을 확인해주세요"
+    }
+}

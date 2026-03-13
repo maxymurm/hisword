@@ -1,0 +1,89 @@
+{
+    "app": {
+        "name": "HisWord",
+        "tagline": "Tu compañero bíblico"
+    },
+    "nav": {
+        "read": "Leer",
+        "search": "Buscar",
+        "bookmarks": "Marcadores",
+        "notes": "Notas",
+        "plans": "Planes de lectura",
+        "settings": "Ajustes",
+        "home": "Inicio"
+    },
+    "auth": {
+        "login": "Iniciar sesión",
+        "register": "Registrarse",
+        "logout": "Cerrar sesión",
+        "email": "Correo electrónico",
+        "password": "Contraseña",
+        "confirm_password": "Confirmar contraseña",
+        "name": "Nombre",
+        "forgot_password": "¿Olvidaste tu contraseña?",
+        "reset_password": "Restablecer contraseña",
+        "remember_me": "Recordarme",
+        "or_continue_with": "O continuar con",
+        "already_have_account": "¿Ya tienes cuenta?",
+        "dont_have_account": "¿No tienes cuenta?",
+        "verify_email": "Verifica tu correo electrónico"
+    },
+    "reader": {
+        "chapter": "Capítulo",
+        "verse": "Versículo",
+        "previous": "Anterior",
+        "next": "Siguiente",
+        "select_module": "Seleccionar traducción",
+        "select_book": "Seleccionar libro",
+        "select_chapter": "Seleccionar capítulo",
+        "no_verses": "No se encontraron versículos",
+        "old_testament": "Antiguo Testamento",
+        "new_testament": "Nuevo Testamento",
+        "commentary": "Comentario",
+        "dictionary": "Diccionario",
+        "strongs": "Números de Strong",
+        "footnotes": "Notas al pie",
+        "cross_references": "Referencias cruzadas"
+    },
+    "search": {
+        "title": "Búsqueda",
+        "placeholder": "Buscar en la Biblia...",
+        "results": "Resultados",
+        "no_results": "No se encontraron resultados",
+        "searching": "Buscando...",
+        "scope_all": "Todo",
+        "scope_ot": "Antiguo Testamento",
+        "scope_nt": "Nuevo Testamento",
+        "scope_book": "Libro actual",
+        "result_count": "{count} resultado | {count} resultados"
+    },
+    "common": {
+        "save": "Guardar",
+        "cancel": "Cancelar",
+        "delete": "Eliminar",
+        "edit": "Editar",
+        "close": "Cerrar",
+        "loading": "Cargando...",
+        "error": "Ocurrió un error",
+        "retry": "Reintentar",
+        "confirm": "Confirmar",
+        "yes": "Sí",
+        "no": "No",
+        "ok": "Aceptar",
+        "share": "Compartir",
+        "copy": "Copiar",
+        "copied": "¡Copiado!",
+        "export": "Exportar",
+        "import": "Importar",
+        "select_all": "Seleccionar todo",
+        "deselect_all": "Deseleccionar todo"
+    },
+    "errors": {
+        "not_found": "Página no encontrada",
+        "unauthorized": "No autorizado",
+        "forbidden": "No tienes permiso para acceder a este recurso",
+        "server_error": "Algo salió mal. Inténtalo de nuevo.",
+        "network_error": "Comprueba tu conexión a internet",
+        "validation_error": "Revisa tus datos"
+    }
+}

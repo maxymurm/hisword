@@ -1,0 +1,89 @@
+{
+    "app": {
+        "name": "HisWord",
+        "tagline": "Ваш библейский спутник"
+    },
+    "nav": {
+        "read": "Читать",
+        "search": "Поиск",
+        "bookmarks": "Закладки",
+        "notes": "Заметки",
+        "plans": "Планы чтения",
+        "settings": "Настройки",
+        "home": "Главная"
+    },
+    "auth": {
+        "login": "Войти",
+        "register": "Регистрация",
+        "logout": "Выйти",
+        "email": "Электронная почта",
+        "password": "Пароль",
+        "confirm_password": "Подтвердите пароль",
+        "name": "Имя",
+        "forgot_password": "Забыли пароль?",
+        "reset_password": "Сбросить пароль",
+        "remember_me": "Запомнить меня",
+        "or_continue_with": "Или продолжить через",
+        "already_have_account": "Уже есть аккаунт?",
+        "dont_have_account": "Нет аккаунта?",
+        "verify_email": "Подтвердите вашу почту"
+    },
+    "reader": {
+        "chapter": "Глава",
+        "verse": "Стих",
+        "previous": "Предыдущий",
+        "next": "Следующий",
+        "select_module": "Выбрать перевод",
+        "select_book": "Выбрать книгу",
+        "select_chapter": "Выбрать главу",
+        "no_verses": "Стихи не найдены",
+        "old_testament": "Ветхий Завет",
+        "new_testament": "Новый Завет",
+        "commentary": "Комментарий",
+        "dictionary": "Словарь",
+        "strongs": "Числа Стронга",
+        "footnotes": "Сноски",
+        "cross_references": "Перекрёстные ссылки"
+    },
+    "search": {
+        "title": "Поиск",
+        "placeholder": "Поиск в Библии...",
+        "results": "Результаты",
+        "no_results": "Результаты не найдены",
+        "searching": "Поиск...",
+        "scope_all": "Все",
+        "scope_ot": "Ветхий Завет",
+        "scope_nt": "Новый Завет",
+        "scope_book": "Текущая книга",
+        "result_count": "{count} результат | {count} результатов"
+    },
+    "common": {
+        "save": "Сохранить",
+        "cancel": "Отмена",
+        "delete": "Удалить",
+        "edit": "Редактировать",
+        "close": "Закрыть",
+        "loading": "Загрузка...",
+        "error": "Произошла ошибка",
+        "retry": "Повторить",
+        "confirm": "Подтвердить",
+        "yes": "Да",
+        "no": "Нет",
+        "ok": "ОК",
+        "share": "Поделиться",
+        "copy": "Копировать",
+        "copied": "Скопировано!",
+        "export": "Экспорт",
+        "import": "Импорт",
+        "select_all": "Выбрать все",
+        "deselect_all": "Снять выбор"
+    },
+    "errors": {
+        "not_found": "Страница не найдена",
+        "unauthorized": "Не авторизован",
+        "forbidden": "У вас нет доступа к этому ресурсу",
+        "server_error": "Что-то пошло не так. Попробуйте снова.",
+        "network_error": "Проверьте подключение к интернету",
+        "validation_error": "Проверьте введённые данные"
+    }
+}

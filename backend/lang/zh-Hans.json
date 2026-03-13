@@ -1,0 +1,89 @@
+{
+    "app": {
+        "name": "HisWord",
+        "tagline": "您的圣经伴侣"
+    },
+    "nav": {
+        "read": "阅读",
+        "search": "搜索",
+        "bookmarks": "书签",
+        "notes": "笔记",
+        "plans": "阅读计划",
+        "settings": "设置",
+        "home": "首页"
+    },
+    "auth": {
+        "login": "登录",
+        "register": "注册",
+        "logout": "退出",
+        "email": "电子邮件",
+        "password": "密码",
+        "confirm_password": "确认密码",
+        "name": "姓名",
+        "forgot_password": "忘记密码？",
+        "reset_password": "重置密码",
+        "remember_me": "记住我",
+        "or_continue_with": "或通过以下方式继续",
+        "already_have_account": "已有账户？",
+        "dont_have_account": "还没有账户？",
+        "verify_email": "验证您的电子邮件"
+    },
+    "reader": {
+        "chapter": "章",
+        "verse": "节",
+        "previous": "上一个",
+        "next": "下一个",
+        "select_module": "选择译本",
+        "select_book": "选择书卷",
+        "select_chapter": "选择章节",
+        "no_verses": "未找到经文",
+        "old_testament": "旧约",
+        "new_testament": "新约",
+        "commentary": "注释",
+        "dictionary": "词典",
+        "strongs": "斯特朗编号",
+        "footnotes": "脚注",
+        "cross_references": "交叉引用"
+    },
+    "search": {
+        "title": "搜索",
+        "placeholder": "搜索圣经...",
+        "results": "结果",
+        "no_results": "未找到结果",
+        "searching": "搜索中...",
+        "scope_all": "全部",
+        "scope_ot": "旧约",
+        "scope_nt": "新约",
+        "scope_book": "当前书卷",
+        "result_count": "{count} 个结果"
+    },
+    "common": {
+        "save": "保存",
+        "cancel": "取消",
+        "delete": "删除",
+        "edit": "编辑",
+        "close": "关闭",
+        "loading": "加载中...",
+        "error": "发生错误",
+        "retry": "重试",
+        "confirm": "确认",
+        "yes": "是",
+        "no": "否",
+        "ok": "确定",
+        "share": "分享",
+        "copy": "复制",
+        "copied": "已复制！",
+        "export": "导出",
+        "import": "导入",
+        "select_all": "全选",
+        "deselect_all": "取消全选"
+    },
+    "errors": {
+        "not_found": "页面未找到",
+        "unauthorized": "未授权",
+        "forbidden": "您没有权限访问此资源",
+        "server_error": "出了点问题，请重试。",
+        "network_error": "请检查您的网络连接",
+        "validation_error": "请检查输入的数据"
+    }
+}

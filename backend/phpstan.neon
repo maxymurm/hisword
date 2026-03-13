@@ -1,0 +1,16 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+
+parameters:
+    paths:
+        - app
+        - config
+        - routes
+    level: 6
+    ignoreErrors:
+        - '#Call to an undefined method Illuminate\\Database\\Eloquent\\Builder#'
+    excludePaths:
+        - app/Console/Kernel.php
+        - app/Exceptions/Handler.php
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false

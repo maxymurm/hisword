@@ -1,0 +1,163 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.tsx';
+@source '../**/*.ts';
+
+@theme {
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+/* Custom animations */
+@keyframes slide-in {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes modal-in {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes scale-in {
+    from { transform: scale(0); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.animate-slide-in {
+    animation: slide-in 0.3s ease-out;
+}
+
+.animate-modal-in {
+    animation: modal-in 0.2s ease-out;
+}
+
+.animate-scale-in {
+    animation: scale-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Dark mode color scheme */
+@media (prefers-color-scheme: dark) {
+    :root:not(.light) {
+        color-scheme: dark;
+    }
+}
+
+.dark {
+    color-scheme: dark;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Safe area for bottom nav (iOS) */
+.safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+/* Touch-friendly tap targets */
+@media (pointer: coarse) {
+    button, a, [role="button"] {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
+
+/* Bible reader: Strong's numbers toggle */
+.hide-strongs .strongs-number,
+.hide-strongs .strongs-link {
+    display: none !important;
+}
+
+/* Bible reader: Strong's number styling */
+.strongs-number {
+    font-size: 0.65em;
+    vertical-align: super;
+    cursor: pointer;
+    color: #6366f1;
+    margin-left: 1px;
+}
+
+.dark .strongs-number {
+    color: #818cf8;
+}
+
+.strongs-link {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.strongs-link:hover {
+    text-decoration: underline;
+}
+
+/* Bible reader: OSIS markup styles */
+.divine-name {
+    font-variant: small-caps;
+}
+
+.red-letter {
+    color: #dc2626;
+}
+
+.dark .red-letter {
+    color: #f87171;
+}
+
+.added-word {
+    font-style: italic;
+}
+
+/* Print stylesheet */
+@media print {
+    /* Hide navigation, toolbars, actions */
+    header, nav, footer,
+    .no-print,
+    [data-no-print],
+    button:not([data-print]) {
+        display: none !important;
+    }
+
+    /* Reset backgrounds & colors for print */
+    body {
+        background: white !important;
+        color: black !important;
+        font-size: 12pt !important;
+    }
+
+    /* Clean up chapter text for printing */
+    main {
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* Ensure verse text is readable */
+    .verse-text {
+        font-size: 11pt !important;
+        line-height: 1.6 !important;
+        color: black !important;
+    }
+
+    /* Show URLs for links */
+    a[href]::after {
+        content: ' (' attr(href) ')';
+        font-size: 9pt;
+        color: #666;
+    }
+
+    /* Page breaks */
+    h1, h2, h3 {
+        page-break-after: avoid;
+    }
+}

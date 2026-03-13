@@ -1,0 +1,89 @@
+{
+    "app": {
+        "name": "HisWord",
+        "tagline": "Dein Bibelbegleiter"
+    },
+    "nav": {
+        "read": "Lesen",
+        "search": "Suche",
+        "bookmarks": "Lesezeichen",
+        "notes": "Notizen",
+        "plans": "Lesepläne",
+        "settings": "Einstellungen",
+        "home": "Startseite"
+    },
+    "auth": {
+        "login": "Anmelden",
+        "register": "Registrieren",
+        "logout": "Abmelden",
+        "email": "E-Mail",
+        "password": "Passwort",
+        "confirm_password": "Passwort bestätigen",
+        "name": "Name",
+        "forgot_password": "Passwort vergessen?",
+        "reset_password": "Passwort zurücksetzen",
+        "remember_me": "Angemeldet bleiben",
+        "or_continue_with": "Oder fortfahren mit",
+        "already_have_account": "Bereits ein Konto?",
+        "dont_have_account": "Noch kein Konto?",
+        "verify_email": "E-Mail verifizieren"
+    },
+    "reader": {
+        "chapter": "Kapitel",
+        "verse": "Vers",
+        "previous": "Zurück",
+        "next": "Weiter",
+        "select_module": "Übersetzung wählen",
+        "select_book": "Buch wählen",
+        "select_chapter": "Kapitel wählen",
+        "no_verses": "Keine Verse gefunden",
+        "old_testament": "Altes Testament",
+        "new_testament": "Neues Testament",
+        "commentary": "Kommentar",
+        "dictionary": "Wörterbuch",
+        "strongs": "Strong-Nummern",
+        "footnotes": "Fußnoten",
+        "cross_references": "Querverweise"
+    },
+    "search": {
+        "title": "Suche",
+        "placeholder": "In der Bibel suchen...",
+        "results": "Ergebnisse",
+        "no_results": "Keine Ergebnisse gefunden",
+        "searching": "Suche läuft...",
+        "scope_all": "Alle",
+        "scope_ot": "Altes Testament",
+        "scope_nt": "Neues Testament",
+        "scope_book": "Aktuelles Buch",
+        "result_count": "{count} Ergebnis | {count} Ergebnisse"
+    },
+    "common": {
+        "save": "Speichern",
+        "cancel": "Abbrechen",
+        "delete": "Löschen",
+        "edit": "Bearbeiten",
+        "close": "Schließen",
+        "loading": "Wird geladen...",
+        "error": "Ein Fehler ist aufgetreten",
+        "retry": "Erneut versuchen",
+        "confirm": "Bestätigen",
+        "yes": "Ja",
+        "no": "Nein",
+        "ok": "OK",
+        "share": "Teilen",
+        "copy": "Kopieren",
+        "copied": "Kopiert!",
+        "export": "Exportieren",
+        "import": "Importieren",
+        "select_all": "Alle auswählen",
+        "deselect_all": "Auswahl aufheben"
+    },
+    "errors": {
+        "not_found": "Seite nicht gefunden",
+        "unauthorized": "Nicht autorisiert",
+        "forbidden": "Zugriff auf diese Ressource nicht gestattet",
+        "server_error": "Ein Fehler ist aufgetreten. Bitte versuche es erneut.",
+        "network_error": "Überprüfe deine Internetverbindung",
+        "validation_error": "Bitte überprüfe deine Eingaben"
+    }
+}

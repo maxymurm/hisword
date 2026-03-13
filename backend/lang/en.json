@@ -1,0 +1,177 @@
+{
+    "app": {
+        "name": "HisWord",
+        "tagline": "Your Bible companion"
+    },
+    "nav": {
+        "read": "Read",
+        "search": "Search",
+        "bookmarks": "Bookmarks",
+        "notes": "Notes",
+        "plans": "Plans",
+        "settings": "Settings",
+        "home": "Home"
+    },
+    "auth": {
+        "login": "Login",
+        "register": "Register",
+        "logout": "Logout",
+        "email": "Email",
+        "password": "Password",
+        "confirm_password": "Confirm Password",
+        "name": "Name",
+        "forgot_password": "Forgot Password?",
+        "reset_password": "Reset Password",
+        "remember_me": "Remember me",
+        "or_continue_with": "Or continue with",
+        "already_have_account": "Already have an account?",
+        "dont_have_account": "Don't have an account?",
+        "verify_email": "Verify your email address"
+    },
+    "reader": {
+        "chapter": "Chapter",
+        "verse": "Verse",
+        "previous": "Previous",
+        "next": "Next",
+        "select_module": "Select Translation",
+        "select_book": "Select Book",
+        "select_chapter": "Select Chapter",
+        "no_verses": "No verses found",
+        "old_testament": "Old Testament",
+        "new_testament": "New Testament",
+        "commentary": "Commentary",
+        "dictionary": "Dictionary",
+        "strongs": "Strong's Numbers",
+        "footnotes": "Footnotes",
+        "cross_references": "Cross References"
+    },
+    "search": {
+        "title": "Search",
+        "placeholder": "Search the Bible...",
+        "results": "Results",
+        "no_results": "No results found",
+        "searching": "Searching...",
+        "scope_all": "All",
+        "scope_ot": "Old Testament",
+        "scope_nt": "New Testament",
+        "scope_book": "Current Book",
+        "result_count": "{count} result | {count} results"
+    },
+    "bookmarks": {
+        "title": "Bookmarks",
+        "add": "Add Bookmark",
+        "folder": "Folder",
+        "no_bookmarks": "No bookmarks yet",
+        "create_folder": "Create Folder",
+        "delete": "Delete Bookmark",
+        "move_to": "Move to..."
+    },
+    "notes": {
+        "title": "Notes",
+        "add": "Add Note",
+        "edit": "Edit Note",
+        "delete": "Delete Note",
+        "no_notes": "No notes yet",
+        "note_title": "Title",
+        "note_content": "Content"
+    },
+    "highlights": {
+        "title": "Highlights",
+        "add": "Highlight",
+        "remove": "Remove Highlight",
+        "no_highlights": "No highlights yet",
+        "color": "Color"
+    },
+    "pins": {
+        "title": "Pinned Verses",
+        "pin": "Pin Verse",
+        "unpin": "Unpin Verse",
+        "no_pins": "No pinned verses"
+    },
+    "plans": {
+        "title": "Reading Plans",
+        "start": "Start Plan",
+        "progress": "Progress",
+        "complete": "Complete",
+        "today": "Today's Reading",
+        "no_plans": "No reading plans available",
+        "days_remaining": "{count} day remaining | {count} days remaining"
+    },
+    "settings": {
+        "title": "Settings",
+        "theme": "Theme",
+        "theme_light": "Light",
+        "theme_dark": "Dark",
+        "theme_system": "System",
+        "language": "Language",
+        "font_size": "Font Size",
+        "notifications": "Notifications",
+        "account": "Account",
+        "about": "About",
+        "privacy": "Privacy Policy",
+        "terms": "Terms of Service",
+        "version": "Version"
+    },
+    "notifications": {
+        "title": "Notifications",
+        "mark_read": "Mark as Read",
+        "mark_all_read": "Mark All Read",
+        "no_notifications": "No notifications",
+        "verse_of_day": "Verse of the Day",
+        "reading_plan": "Reading Plan",
+        "new_module": "New Module Available"
+    },
+    "onboarding": {
+        "welcome": "Welcome to HisWord",
+        "welcome_subtitle": "Your personal Bible study companion",
+        "feature_read": "Read & Study",
+        "feature_read_desc": "Access multiple Bible translations with commentary and dictionary support",
+        "feature_annotate": "Annotate & Organize",
+        "feature_annotate_desc": "Highlight verses, add notes, create bookmarks, and organize your study",
+        "feature_sync": "Sync Everywhere",
+        "feature_sync_desc": "Your data syncs across all your devices automatically",
+        "select_module": "Choose a Bible Translation",
+        "select_theme": "Choose Your Theme",
+        "get_started": "Get Started",
+        "skip": "Skip",
+        "next": "Next",
+        "back": "Back"
+    },
+    "common": {
+        "save": "Save",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "edit": "Edit",
+        "close": "Close",
+        "loading": "Loading...",
+        "error": "An error occurred",
+        "retry": "Retry",
+        "confirm": "Confirm",
+        "yes": "Yes",
+        "no": "No",
+        "ok": "OK",
+        "share": "Share",
+        "copy": "Copy",
+        "copied": "Copied!",
+        "export": "Export",
+        "import": "Import",
+        "select_all": "Select All",
+        "deselect_all": "Deselect All"
+    },
+    "errors": {
+        "not_found": "Page not found",
+        "unauthorized": "Unauthorized",
+        "forbidden": "You don't have permission to access this resource",
+        "server_error": "Something went wrong. Please try again.",
+        "network_error": "Check your internet connection",
+        "validation_error": "Please check your input"
+    },
+    "time": {
+        "just_now": "Just now",
+        "minutes_ago": "{count} minute ago | {count} minutes ago",
+        "hours_ago": "{count} hour ago | {count} hours ago",
+        "days_ago": "{count} day ago | {count} days ago",
+        "yesterday": "Yesterday",
+        "today": "Today"
+    }
+}

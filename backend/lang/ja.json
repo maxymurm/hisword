@@ -1,0 +1,89 @@
+{
+    "app": {
+        "name": "HisWord",
+        "tagline": "あなたの聖書コンパニオン"
+    },
+    "nav": {
+        "read": "読む",
+        "search": "検索",
+        "bookmarks": "ブックマーク",
+        "notes": "ノート",
+        "plans": "読書プラン",
+        "settings": "設定",
+        "home": "ホーム"
+    },
+    "auth": {
+        "login": "ログイン",
+        "register": "アカウント作成",
+        "logout": "ログアウト",
+        "email": "メールアドレス",
+        "password": "パスワード",
+        "confirm_password": "パスワード確認",
+        "name": "名前",
+        "forgot_password": "パスワードをお忘れですか？",
+        "reset_password": "パスワードリセット",
+        "remember_me": "ログイン状態を保持",
+        "or_continue_with": "または次で続行",
+        "already_have_account": "アカウントをお持ちですか？",
+        "dont_have_account": "アカウントをお持ちでないですか？",
+        "verify_email": "メールアドレスを確認してください"
+    },
+    "reader": {
+        "chapter": "章",
+        "verse": "節",
+        "previous": "前へ",
+        "next": "次へ",
+        "select_module": "翻訳を選択",
+        "select_book": "書を選択",
+        "select_chapter": "章を選択",
+        "no_verses": "節が見つかりませんでした",
+        "old_testament": "旧約聖書",
+        "new_testament": "新約聖書",
+        "commentary": "注解",
+        "dictionary": "辞書",
+        "strongs": "ストロング番号",
+        "footnotes": "脚注",
+        "cross_references": "相互参照"
+    },
+    "search": {
+        "title": "検索",
+        "placeholder": "聖書を検索...",
+        "results": "結果",
+        "no_results": "結果が見つかりませんでした",
+        "searching": "検索中...",
+        "scope_all": "すべて",
+        "scope_ot": "旧約聖書",
+        "scope_nt": "新約聖書",
+        "scope_book": "現在の書",
+        "result_count": "{count} 件の結果"
+    },
+    "common": {
+        "save": "保存",
+        "cancel": "キャンセル",
+        "delete": "削除",
+        "edit": "編集",
+        "close": "閉じる",
+        "loading": "読み込み中...",
+        "error": "エラーが発生しました",
+        "retry": "再試行",
+        "confirm": "確認",
+        "yes": "はい",
+        "no": "いいえ",
+        "ok": "OK",
+        "share": "共有",
+        "copy": "コピー",
+        "copied": "コピーしました！",
+        "export": "エクスポート",
+        "import": "インポート",
+        "select_all": "すべて選択",
+        "deselect_all": "選択解除"
+    },
+    "errors": {
+        "not_found": "ページが見つかりません",
+        "unauthorized": "未認証",
+        "forbidden": "このリソースへのアクセス権がありません",
+        "server_error": "エラーが発生しました。もう一度お試しください。",
+        "network_error": "インターネット接続を確認してください",
+        "validation_error": "入力内容を確認してください"
+    }
+}

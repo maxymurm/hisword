@@ -1,0 +1,89 @@
+{
+    "app": {
+        "name": "HisWord",
+        "tagline": "Ваш біблійний супутник"
+    },
+    "nav": {
+        "read": "Читати",
+        "search": "Пошук",
+        "bookmarks": "Закладки",
+        "notes": "Нотатки",
+        "plans": "Плани читання",
+        "settings": "Налаштування",
+        "home": "Головна"
+    },
+    "auth": {
+        "login": "Увійти",
+        "register": "Реєстрація",
+        "logout": "Вийти",
+        "email": "Електронна пошта",
+        "password": "Пароль",
+        "confirm_password": "Підтвердіть пароль",
+        "name": "Ім'я",
+        "forgot_password": "Забули пароль?",
+        "reset_password": "Скинути пароль",
+        "remember_me": "Запам'ятати мене",
+        "or_continue_with": "Або продовжити через",
+        "already_have_account": "Вже маєте обліковий запис?",
+        "dont_have_account": "Немає облікового запису?",
+        "verify_email": "Підтвердіть вашу пошту"
+    },
+    "reader": {
+        "chapter": "Розділ",
+        "verse": "Вірш",
+        "previous": "Попередній",
+        "next": "Наступний",
+        "select_module": "Вибрати переклад",
+        "select_book": "Вибрати книгу",
+        "select_chapter": "Вибрати розділ",
+        "no_verses": "Віршів не знайдено",
+        "old_testament": "Старий Завіт",
+        "new_testament": "Новий Завіт",
+        "commentary": "Коментар",
+        "dictionary": "Словник",
+        "strongs": "Числа Стронга",
+        "footnotes": "Виноски",
+        "cross_references": "Перехресні посилання"
+    },
+    "search": {
+        "title": "Пошук",
+        "placeholder": "Шукати в Біблії...",
+        "results": "Результати",
+        "no_results": "Результатів не знайдено",
+        "searching": "Пошук...",
+        "scope_all": "Все",
+        "scope_ot": "Старий Завіт",
+        "scope_nt": "Новий Завіт",
+        "scope_book": "Поточна книга",
+        "result_count": "{count} результат | {count} результатів"
+    },
+    "common": {
+        "save": "Зберегти",
+        "cancel": "Скасувати",
+        "delete": "Видалити",
+        "edit": "Редагувати",
+        "close": "Закрити",
+        "loading": "Завантаження...",
+        "error": "Сталася помилка",
+        "retry": "Повторити",
+        "confirm": "Підтвердити",
+        "yes": "Так",
+        "no": "Ні",
+        "ok": "ОК",
+        "share": "Поділитися",
+        "copy": "Копіювати",
+        "copied": "Скопійовано!",
+        "export": "Експорт",
+        "import": "Імпорт",
+        "select_all": "Вибрати все",
+        "deselect_all": "Зняти вибір"
+    },
+    "errors": {
+        "not_found": "Сторінку не знайдено",
+        "unauthorized": "Не авторизовано",
+        "forbidden": "У вас немає доступу до цього ресурсу",
+        "server_error": "Щось пішло не так. Спробуйте знову.",
+        "network_error": "Перевірте підключення до інтернету",
+        "validation_error": "Перевірте введені дані"
+    }
+}

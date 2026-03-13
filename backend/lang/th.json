@@ -1,0 +1,89 @@
+{
+    "app": {
+        "name": "HisWord",
+        "tagline": "เพื่อนร่วมทางพระคัมภีร์ของคุณ"
+    },
+    "nav": {
+        "read": "อ่าน",
+        "search": "ค้นหา",
+        "bookmarks": "บุ๊กมาร์ก",
+        "notes": "บันทึก",
+        "plans": "แผนการอ่าน",
+        "settings": "ตั้งค่า",
+        "home": "หน้าหลัก"
+    },
+    "auth": {
+        "login": "เข้าสู่ระบบ",
+        "register": "ลงทะเบียน",
+        "logout": "ออกจากระบบ",
+        "email": "อีเมล",
+        "password": "รหัสผ่าน",
+        "confirm_password": "ยืนยันรหัสผ่าน",
+        "name": "ชื่อ",
+        "forgot_password": "ลืมรหัสผ่าน?",
+        "reset_password": "รีเซ็ตรหัสผ่าน",
+        "remember_me": "จดจำฉัน",
+        "or_continue_with": "หรือดำเนินการต่อด้วย",
+        "already_have_account": "มีบัญชีอยู่แล้ว?",
+        "dont_have_account": "ยังไม่มีบัญชี?",
+        "verify_email": "ยืนยันอีเมลของคุณ"
+    },
+    "reader": {
+        "chapter": "บท",
+        "verse": "ข้อ",
+        "previous": "ก่อนหน้า",
+        "next": "ถัดไป",
+        "select_module": "เลือกฉบับแปล",
+        "select_book": "เลือกพระธรรม",
+        "select_chapter": "เลือกบท",
+        "no_verses": "ไม่พบข้อพระคัมภีร์",
+        "old_testament": "พันธสัญญาเดิม",
+        "new_testament": "พันธสัญญาใหม่",
+        "commentary": "อรรถาธิบาย",
+        "dictionary": "พจนานุกรม",
+        "strongs": "หมายเลขสตรอง",
+        "footnotes": "เชิงอรรถ",
+        "cross_references": "อ้างอิงข้าม"
+    },
+    "search": {
+        "title": "ค้นหา",
+        "placeholder": "ค้นหาในพระคัมภีร์...",
+        "results": "ผลลัพธ์",
+        "no_results": "ไม่พบผลลัพธ์",
+        "searching": "กำลังค้นหา...",
+        "scope_all": "ทั้งหมด",
+        "scope_ot": "พันธสัญญาเดิม",
+        "scope_nt": "พันธสัญญาใหม่",
+        "scope_book": "พระธรรมปัจจุบัน",
+        "result_count": "{count} ผลลัพธ์"
+    },
+    "common": {
+        "save": "บันทึก",
+        "cancel": "ยกเลิก",
+        "delete": "ลบ",
+        "edit": "แก้ไข",
+        "close": "ปิด",
+        "loading": "กำลังโหลด...",
+        "error": "เกิดข้อผิดพลาด",
+        "retry": "ลองอีกครั้ง",
+        "confirm": "ยืนยัน",
+        "yes": "ใช่",
+        "no": "ไม่",
+        "ok": "ตกลง",
+        "share": "แชร์",
+        "copy": "คัดลอก",
+        "copied": "คัดลอกแล้ว!",
+        "export": "ส่งออก",
+        "import": "นำเข้า",
+        "select_all": "เลือกทั้งหมด",
+        "deselect_all": "ยกเลิกการเลือก"
+    },
+    "errors": {
+        "not_found": "ไม่พบหน้า",
+        "unauthorized": "ไม่ได้รับอนุญาต",
+        "forbidden": "คุณไม่มีสิทธิ์เข้าถึงทรัพยากรนี้",
+        "server_error": "เกิดข้อผิดพลาด กรุณาลองอีกครั้ง",
+        "network_error": "ตรวจสอบการเชื่อมต่ออินเทอร์เน็ต",
+        "validation_error": "กรุณาตรวจสอบข้อมูลที่กรอก"
+    }
+}

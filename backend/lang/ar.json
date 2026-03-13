@@ -1,0 +1,89 @@
+{
+    "app": {
+        "name": "بوكت سورد",
+        "tagline": "رفيقك في الكتاب المقدس"
+    },
+    "nav": {
+        "read": "قراءة",
+        "search": "بحث",
+        "bookmarks": "علامات مرجعية",
+        "notes": "ملاحظات",
+        "plans": "خطط قراءة",
+        "settings": "إعدادات",
+        "home": "الرئيسية"
+    },
+    "auth": {
+        "login": "تسجيل الدخول",
+        "register": "إنشاء حساب",
+        "logout": "تسجيل الخروج",
+        "email": "البريد الإلكتروني",
+        "password": "كلمة المرور",
+        "confirm_password": "تأكيد كلمة المرور",
+        "name": "الاسم",
+        "forgot_password": "نسيت كلمة المرور؟",
+        "reset_password": "إعادة تعيين كلمة المرور",
+        "remember_me": "تذكرني",
+        "or_continue_with": "أو تابع باستخدام",
+        "already_have_account": "لديك حساب بالفعل؟",
+        "dont_have_account": "ليس لديك حساب؟",
+        "verify_email": "تحقق من بريدك الإلكتروني"
+    },
+    "reader": {
+        "chapter": "إصحاح",
+        "verse": "آية",
+        "previous": "السابق",
+        "next": "التالي",
+        "select_module": "اختر الترجمة",
+        "select_book": "اختر السفر",
+        "select_chapter": "اختر الإصحاح",
+        "no_verses": "لم يتم العثور على آيات",
+        "old_testament": "العهد القديم",
+        "new_testament": "العهد الجديد",
+        "commentary": "تفسير",
+        "dictionary": "قاموس",
+        "strongs": "أرقام سترونج",
+        "footnotes": "حواشي",
+        "cross_references": "مراجع تقاطعية"
+    },
+    "search": {
+        "title": "بحث",
+        "placeholder": "ابحث في الكتاب المقدس...",
+        "results": "النتائج",
+        "no_results": "لم يتم العثور على نتائج",
+        "searching": "جاري البحث...",
+        "scope_all": "الكل",
+        "scope_ot": "العهد القديم",
+        "scope_nt": "العهد الجديد",
+        "scope_book": "السفر الحالي",
+        "result_count": "{count} نتيجة | {count} نتائج"
+    },
+    "common": {
+        "save": "حفظ",
+        "cancel": "إلغاء",
+        "delete": "حذف",
+        "edit": "تعديل",
+        "close": "إغلاق",
+        "loading": "جاري التحميل...",
+        "error": "حدث خطأ",
+        "retry": "إعادة المحاولة",
+        "confirm": "تأكيد",
+        "yes": "نعم",
+        "no": "لا",
+        "ok": "موافق",
+        "share": "مشاركة",
+        "copy": "نسخ",
+        "copied": "تم النسخ!",
+        "export": "تصدير",
+        "import": "استيراد",
+        "select_all": "تحديد الكل",
+        "deselect_all": "إلغاء تحديد الكل"
+    },
+    "errors": {
+        "not_found": "الصفحة غير موجودة",
+        "unauthorized": "غير مصرح",
+        "forbidden": "ليس لديك صلاحية للوصول إلى هذا المورد",
+        "server_error": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+        "network_error": "تحقق من اتصالك بالإنترنت",
+        "validation_error": "يرجى التحقق من المدخلات"
+    }
+}
