@@ -42,6 +42,10 @@ Route::prefix('v1')->group(function () {
         Route::post('modules/{module}/uninstall', [\App\Http\Controllers\Api\V1\ModuleController::class, 'uninstall']);
         Route::get('modules/{module}/books', [\App\Http\Controllers\Api\V1\BibleController::class, 'books']);
 
+        // YES2 Catalog
+        Route::get('catalog/versions', [\App\Http\Controllers\Api\V1\CatalogController::class, 'versions']);
+        Route::get('catalog/versions/{id}/download', [\App\Http\Controllers\Api\V1\CatalogController::class, 'download']);
+
         // Module Sources
         Route::apiResource('module-sources', \App\Http\Controllers\Api\V1\ModuleSourceController::class);
         Route::get('books/{book}/chapters', [\App\Http\Controllers\Api\V1\BibleController::class, 'chapters']);

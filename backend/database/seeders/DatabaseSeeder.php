@@ -23,5 +23,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call(SwordModuleSeeder::class);
+        $this->call(Yes2VersionSeeder::class);
     }
 }
