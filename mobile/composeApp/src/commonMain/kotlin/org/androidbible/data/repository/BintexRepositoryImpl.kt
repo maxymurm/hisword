@@ -3,8 +3,10 @@ package org.androidbible.data.repository
 import org.androidbible.data.bintex.Yes1Reader
 import org.androidbible.data.bintex.Yes2Reader
 import org.androidbible.data.bintex.Yes2TextDecoder
+import org.androidbible.domain.model.SearchResult
 import org.androidbible.domain.model.Verse
 import org.androidbible.domain.repository.BibleReader
+import org.androidbible.domain.repository.ModuleInfo
 import org.androidbible.util.Ari
 
 /**
@@ -45,6 +47,108 @@ class BintexRepositoryImpl(
 
     override suspend fun hasDataFiles(moduleKey: String): Boolean {
         return loadModuleData(moduleKey) != null
+    }
+
+    override suspend fun search(moduleKey: String, query: String, maxResults: Int): List<SearchResult> {
+        val reader = getOrLoadReader(moduleKey) ?: return emptyList()
+        val results = mutableListOf<SearchResult>()
+        val lowerQuery = query.lowercase()
+
+        when (reader) {
+            is Yes2Reader -> {
+                val books = reader.getBooksInfo()
+                for ((bookIndex, book) in books.withIndex()) {
+                    for (chapter in 1..book.chapterCount) {
+                        val verseTexts = reader.loadVerseText(bookIndex, chapter)
+                        for ((index, rawText) in verseTexts.withIndex()) {
+                            val plain = Yes2TextDecoder.toPlainText(rawText)
+                            if (plain.lowercase().contains(lowerQuery)) {
+                                val verseNum = index + 1
+                                val ari = Ari.encode(book.bookId, chapter, verseNum)
+                                results.add(
+                                    SearchResult(
+                                        verse = Verse(
+                                            bibleVersionId = 0,
+                                            ari = ari,
+                                            bookId = book.bookId,
+                                            chapter = chapter,
+                                            verse = verseNum,
+                                            text = rawText,
+                                            textWithoutFormatting = plain,
+                                        ),
+                                        bookName = book.shortName ?: "Book ${book.bookId}",
+                                    )
+                                )
+                                if (results.size >= maxResults) return results
+                            }
+                        }
+                    }
+                }
+            }
+            is Yes1Reader -> {
+                val booksMap = reader.getBooksInfo()
+                for ((bookId, book) in booksMap) {
+                    for (chapter in 1..book.chapterCount) {
+                        val verseTexts = reader.loadVerseText(bookId, chapter)
+                        for ((index, rawText) in verseTexts.withIndex()) {
+                            val plain = Yes2TextDecoder.toPlainText(rawText)
+                            if (plain.lowercase().contains(lowerQuery)) {
+                                val verseNum = index + 1
+                                val ari = Ari.encode(bookId, chapter, verseNum)
+                                results.add(
+                                    SearchResult(
+                                        verse = Verse(
+                                            bibleVersionId = 0,
+                                            ari = ari,
+                                            bookId = bookId,
+                                            chapter = chapter,
+                                            verse = verseNum,
+                                            text = rawText,
+                                            textWithoutFormatting = plain,
+                                        ),
+                                        bookName = book.shortName ?: "Book $bookId",
+                                    )
+                                )
+                                if (results.size >= maxResults) return results
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return results
+    }
+
+    override suspend fun getModuleInfo(moduleKey: String): ModuleInfo? {
+        val reader = getOrLoadReader(moduleKey) ?: return null
+        return when (reader) {
+            is Yes2Reader -> {
+                val info = reader.getVersionInfo()
+                val books = reader.getBooksInfo()
+                ModuleInfo(
+                    key = moduleKey,
+                    name = info.longName ?: info.shortName ?: moduleKey,
+                    description = info.description ?: "",
+                    language = info.locale ?: "en",
+                    engine = "bintex",
+                    hasOT = books.any { it.bookId in 1..39 },
+                    hasNT = books.any { it.bookId in 40..66 },
+                )
+            }
+            is Yes1Reader -> {
+                val booksMap = reader.getBooksInfo()
+                ModuleInfo(
+                    key = moduleKey,
+                    name = moduleKey,
+                    description = "",
+                    language = "en",
+                    engine = "bintex",
+                    hasOT = booksMap.keys.any { it in 1..39 },
+                    hasNT = booksMap.keys.any { it in 40..66 },
+                )
+            }
+            else -> null
+        }
     }
 
     // -- YES2 --

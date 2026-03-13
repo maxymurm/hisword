@@ -5,6 +5,8 @@ import org.androidbible.data.local.HisWordDatabase
 import org.androidbible.data.remote.ApiService
 import org.androidbible.data.remote.HttpClientFactory
 import org.androidbible.data.repository.*
+import org.androidbible.data.sword.SwordManager
+import org.androidbible.data.sword.SwordModuleInitializer
 import org.androidbible.data.sync.SyncManager
 import org.androidbible.domain.repository.*
 import org.koin.core.KoinApplication
@@ -36,12 +38,24 @@ val appModule = module {
     // API Service
     single { ApiService(get()) }
 
-    // Bible Engine Readers — actual implementations registered in later phases
-    // Qualified singletons for SWORD and Bintex reader engines
-    // Usage: val swordReader: BibleReader = get(named("sword"))
-    //        val bintexReader: BibleReader = get(named("bintex"))
-    single<BibleReader>(named("sword")) { NoOpBibleReader }
-    single<BibleReader>(named("bintex")) { NoOpBibleReader }
+    // Bible Engine Readers
+    // SWORD engine: loads modules from platform-specific sword directory
+    single {
+        val initializer = SwordModuleInitializer()
+        val basePath = initializer.getModulesBasePath()
+        val manager = SwordManager(basePath)
+        manager.loadModules()
+        manager
+    }
+
+    single<BibleReader>(named("sword")) {
+        SwordBibleReader(swordManager = get())
+    }
+
+    single<BibleReader>(named("bintex")) {
+        val loader: org.androidbible.data.bintex.ModuleFileLoader = get()
+        BintexRepositoryImpl(loadModuleData = { loader.loadModuleData(it) })
+    }
 
     // Unified reader factory
     single {
@@ -54,6 +68,7 @@ val appModule = module {
     // Repositories
     single<AuthRepository> { AuthRepositoryImpl(get(), get(), get()) }
     single<BibleRepository> { BibleRepositoryImpl(get(), get()) }
+    single<BibleVersionRepository> { BibleVersionRepositoryImpl(get(), get()) }
     single<MarkerRepository> { MarkerRepositoryImpl(get(), get()) }
     single<ProgressRepository> { ProgressRepositoryImpl(get(), get()) }
     single<ReadingPlanRepository> { ReadingPlanRepositoryImpl(get(), get()) }
