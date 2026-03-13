@@ -11,6 +11,8 @@ data class SyncEvent(
     val action: String,
     val payload: String, // JSON payload
     val version: Long,
+    val deviceId: String? = null,
+    val updatedAt: String? = null,
     val createdAt: String? = null,
 )
 
