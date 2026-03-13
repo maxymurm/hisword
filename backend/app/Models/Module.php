@@ -26,6 +26,8 @@ class Module extends Model
         'is_installed',
         'is_bundled',
         'features',
+        'engine',
+        'driver',
         'mod_drv',
         'data_path',
         'source_type_format',

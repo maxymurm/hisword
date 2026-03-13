@@ -6,10 +6,49 @@ use App\Models\Book;
 use App\Models\Chapter;
 use App\Models\Module;
 use App\Models\Verse;
+use App\Services\BibleReaderFactory;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class BibleController extends BaseApiController
 {
+    public function __construct(
+        private BibleReaderFactory $readerFactory,
+    ) {}
+
+    /**
+     * Read a chapter from any module engine (SWORD or Bintex).
+     *
+     * GET /api/v1/read/{moduleKey}/{book}/{chapter}?verse={verse}
+     */
+    public function read(Request $request, string $moduleKey, string $book, int $chapter): JsonResponse
+    {
+        $module = Module::where('key', $moduleKey)->firstOrFail();
+        $verse = $request->integer('verse');
+
+        if ($verse > 0) {
+            $data = $this->readerFactory->readVerse($module, $book, $chapter, $verse);
+
+            return $this->success([
+                'module' => $moduleKey,
+                'book' => $book,
+                'chapter' => $chapter,
+                'verse' => $verse,
+                'text' => $data,
+            ]);
+        }
+
+        $verses = $this->readerFactory->readChapter($module, $book, $chapter);
+
+        return $this->success([
+            'module' => $moduleKey,
+            'book' => $book,
+            'chapter' => $chapter,
+            'verse_count' => count($verses),
+            'verses' => $verses,
+        ]);
+    }
+
     /**
      * List books for a module.
      */

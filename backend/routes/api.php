@@ -34,6 +34,8 @@ Route::prefix('v1')->group(function () {
         });
 
         // Bible Content
+        Route::get('read/{moduleKey}/{book}/{chapter}', [\App\Http\Controllers\Api\V1\BibleController::class, 'read'])
+            ->where('chapter', '[0-9]+');
         Route::get('modules/available', [\App\Http\Controllers\Api\V1\ModuleController::class, 'available']);
         Route::apiResource('modules', \App\Http\Controllers\Api\V1\ModuleController::class)->only(['index', 'show']);
         Route::post('modules/{module}/install', [\App\Http\Controllers\Api\V1\ModuleController::class, 'install']);

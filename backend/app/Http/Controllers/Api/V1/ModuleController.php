@@ -18,6 +18,9 @@ class ModuleController extends BaseApiController
         if ($language = $request->query('language')) {
             $query->where('language', $language);
         }
+        if ($engine = $request->query('engine')) {
+            $query->where('engine', $engine);
+        }
         if ($request->has('installed')) {
             $query->where('is_installed', $request->boolean('installed'));
         }
@@ -51,6 +54,9 @@ class ModuleController extends BaseApiController
         }
         if ($language = $request->query('language')) {
             $query->where('language', $language);
+        }
+        if ($engine = $request->query('engine')) {
+            $query->where('engine', $engine);
         }
         if ($search = $request->query('search')) {
             $query->where(function ($q) use ($search) {
